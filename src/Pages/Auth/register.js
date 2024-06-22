@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import Cookie from 'cookie-universal';
 
 export default function Register() {
-  // States
+    // States
     const [form, setForm] = useState({
         name: "",
         email: "",
@@ -30,8 +30,8 @@ export default function Register() {
     const cookie = Cookie();
     // handle form change
     function handleChange(e) {
-        
-        setForm({ ...form, [e.target.name] : e.target.value});
+
+        setForm({ ...form, [e.target.name]: e.target.value });
     }
 
     // handle form submit
@@ -45,7 +45,7 @@ export default function Register() {
             const token = res.data.token
             cookie.set('e-commerce', token)
             nav("/users")
-        } 
+        }
         catch (err) {
             setLoading(false)
             if (err.response.status === 422) {
@@ -56,66 +56,68 @@ export default function Register() {
             }
         }
     }
-    
+
 
     return (
         <>
             {loading && <LoadingSubmit />}
-        <div className="container">
-            <div className="row h-100">
-            <form className="form" onSubmit={handleSubmit}>
-            <div className="custom-form">
-                <h1>Register Now</h1>
-            <div className="form-control">
-            <input
-                id="name"
-                name="name"
-                value={form.name}
-                type="text"
-                placeholder="Enter Your Name..."
-                onChange={handleChange}
-                required
-            ></input>
-            <label htmlFor="name">Name</label>
+            <div className="container">
+                <div className="row h-100vh">
+                    <form className="form" onSubmit={handleSubmit}>
+                        <div className="custom-form">
+                            <h1>Register Now</h1>
+                            <div className="form-control">
+                                <span className="user-icon"></span>
+                                <input
+                                    id="name"
+                                    name="name"
+                                    value={form.name}
+                                    type="text"
+                                    placeholder="Enter Your Name..."
+                                    onChange={handleChange}
+                                    required
+                                ></input>
+                                <label htmlFor="name">Name</label>
+                            </div>
+
+                            <div className="form-control">
+                                <span className="email-icon"></span>
+                                <input
+                                    id="email"
+                                    name="email"
+                                    value={form.email}
+                                    type="email"
+                                    placeholder="Enter Your Email..."
+                                    onChange={handleChange}
+                                    required
+                                ></input>
+                                <label htmlFor="email">Email</label>
+                            </div>
+
+                            <div className="form-control">
+                                <span className="pass-icon"></span>
+                                <input
+                                    id="password"
+                                    name="password"
+                                    value={form.password}
+                                    type="password"
+                                    placeholder="Enter Your Password..."
+                                    minLength="6"
+                                    onChange={handleChange}
+                                    required
+                                ></input>
+                                <label htmlFor="password">Password</label>
+                            </div>
+
+                            <button class="bn54">
+                                <span class="bn54span">Sign Up</span>
+                            </button>
+                            {err !== "" && <span className="err">{err}</span>}
+                        </div>
+                        
+                    </form>
+                </div>
             </div>
-
-            <div className="form-control">
-            <input
-                id="email"
-                name="email"
-                value={form.email}
-                type="email"
-                placeholder="Enter Your Email..."
-                onChange={handleChange}
-                required
-            ></input>
-            <label htmlFor="email">Email</label>
-
-            </div>
-
-            <div className="form-control">
-            <input
-                id="password"
-                name="password"
-                value={form.password}
-                type="password"
-                placeholder="Enter Your Password..."
-                minLength="6"
-                onChange={handleChange}
-                required
-            ></input>
-            <label htmlFor="password">Password</label>
-
-            </div>
-
-            <button class="bn54">
-                <span class="bn54span">Sign Up</span>
-            </button>
-            {err !== "" && <span className="err">{err}</span>}
-            </div>
-        </form>
-        </div>
-        </div>
         </>
     );
 }
