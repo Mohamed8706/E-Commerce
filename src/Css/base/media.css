@@ -1,0 +1,76 @@
+/* 576px */
+@media (max-width: 576px) {
+    .container {
+        width: 100%;
+    }
+}
+
+@media (min-width: 576px) {
+    .container {
+        width: 540px;
+    }
+}
+/* 768px */
+@media (min-width: 768px) {
+    .container {
+        width: 720px;
+    }
+}
+/* 992px */
+@media (min-width: 992px) {
+    .container {
+        width: 960PX;
+    }
+}
+@media (max-width:992px) {
+.form {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.8) 0%,rgba(255, 255, 255, 0.8) 100%),
+        url("../geranimo-WJkc3xZjSXw-unsplash.jpg");
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+
+}
+.custom-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    
+}
+.form-control, .form-control input{
+    width: 100%;
+    justify-content: center;
+    display: flex;
+}
+.icon-span{
+    width: 100%;
+    flex-direction: column;
+    
+}
+.foot-note{
+    align-self: center;
+}
+.my-icon {
+        width: 160px;
+        height: 160px;
+        margin: 0px 0 10px 0;
+        align-self: center;
+}
+}
+/* 1200px */
+@media (min-width: 1200px) {
+    .container {
+        width: 1140px;
+    }
+}
+/* 1400px */
+@media (min-width: 1400px) {
+    .container {
+        width: 1320px;
+    }
+}
