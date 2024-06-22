@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/E-Commerce/static/css/main.50c79cba.css",
+    "main.js": "/E-Commerce/static/js/main.4b69edb7.js",
+    "static/media/geranimo-WJkc3xZjSXw-unsplash.jpg": "/E-Commerce/static/media/geranimo-WJkc3xZjSXw-unsplash.8b152378d7ca1daa7ffc.jpg",
+    "static/media/Login-amico.svg": "/E-Commerce/static/media/Login-amico.3db11cebd7f99399cbc3cdcb9e98f1ff.svg",
+    "index.html": "/E-Commerce/index.html",
+    "main.50c79cba.css.map": "/E-Commerce/static/css/main.50c79cba.css.map",
+    "main.4b69edb7.js.map": "/E-Commerce/static/js/main.4b69edb7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.50c79cba.css",
+    "static/js/main.4b69edb7.js"
+  ]
+}
