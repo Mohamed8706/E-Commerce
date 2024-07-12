@@ -6,11 +6,12 @@ import { Link, useNavigate } from "react-router-dom";
 import Cookie from "cookie-universal";
 import { ReactComponent as MyICon } from "../../Assets/Login-amico.svg";
 import { ReactComponent as GoogleIcon } from "../../Assets/icons8-google.svg";
-import { lineSpinner } from "ldrs";
 import { Form } from "react-bootstrap";
-lineSpinner.register();
+
 
     export default function LogIn() {
+
+
     // States
     const [form, setForm] = useState({
         email: "",
@@ -29,6 +30,8 @@ lineSpinner.register();
     // Cookie
     const cookie = Cookie();
 
+
+
     // handle form change
     function handleChange(e) {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -44,7 +47,7 @@ lineSpinner.register();
         setErr("");
         const token = res.data.token;
         cookie.set("e-commerce", token);
-        nav("/users");
+        nav("/dashboard/users/", {replace : true});
         } catch (err) {
         setLoading(false);
         if (err.response.status === 401) {
@@ -58,7 +61,6 @@ lineSpinner.register();
     return (
         <>
         {loading && <LoadingSubmit />}
-
         <div className="container">
             <div className="row h-100vh">
             <Form className="form" onSubmit={handleSubmit}>
@@ -105,8 +107,8 @@ lineSpinner.register();
                     <Form.Label>Password</Form.Label>
                 </Form.Group>
 
-                <button class="bn54">
-                    <span class="bn54span">Login</span>
+                <button className="bn54">
+                <span className="bn54span">Login</span>
                 </button>
                 {err !== "" && (
                     <>

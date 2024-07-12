@@ -6,3 +6,7 @@ export const LOGOUT = "logout";
 
 // Users
 export const USERS = "users";
+export const USER = "user";
+export const DELETE = "delete"
+// Google Sign 
+export const GOOGLE_CALL_BACK = "auth/google/callback"

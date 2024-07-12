@@ -4,6 +4,9 @@ import axios from "axios";
 import LoadingSubmit from './../../Components/Loading/loading';
 import { useNavigate } from "react-router-dom";
 import Cookie from 'cookie-universal';
+import { Form } from "react-bootstrap";
+import { ReactComponent as GoogleIcon } from "../../Assets/icons8-google.svg";
+
 
 export default function Register() {
     // States
@@ -44,7 +47,8 @@ export default function Register() {
             setErr("")
             const token = res.data.token
             cookie.set('e-commerce', token)
-            nav("/users")
+            nav("/dashboard/users/", { replace: true });
+
         }
         catch (err) {
             setLoading(false)
@@ -63,59 +67,73 @@ export default function Register() {
             {loading && <LoadingSubmit />}
             <div className="container">
                 <div className="row h-100vh">
-                    <form className="form" onSubmit={handleSubmit}>
+                    <Form className="form" onSubmit={handleSubmit}>
                         <div className="custom-form">
-                            <h1>Register Now</h1>
-                            <div className="form-control">
+                            <div className="google-wraper">
+                                <a href="http://127.0.0.1:8000/login-google">
+                                    <GoogleIcon className="google-icon" />
+                                    <p className="par">Continue with Google</p>
+                                </a>
+                            </div>
+                            <span className="divider">or</span>
+
+                            <Form.Group
+                                className="form-custom"
+                                controlId="formBasicName"
+                            >
                                 <span className="user-icon"></span>
-                                <input
-                                    id="name"
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Enter your Name"
                                     name="name"
                                     value={form.name}
-                                    type="text"
-                                    placeholder="Enter Your Name..."
                                     onChange={handleChange}
                                     required
-                                ></input>
-                                <label htmlFor="name">Name</label>
-                            </div>
+                                />
+                                <Form.Label>Name</Form.Label>
+                            </Form.Group>
 
-                            <div className="form-control">
+                            <Form.Group
+                                className="form-custom"
+                                controlId="formBasicEmail"
+                            >
                                 <span className="email-icon"></span>
-                                <input
-                                    id="email"
+                                <Form.Control
+                                    type="email"
+                                    placeholder="Enter your e-mail"
                                     name="email"
                                     value={form.email}
-                                    type="email"
-                                    placeholder="Enter Your Email..."
                                     onChange={handleChange}
                                     required
-                                ></input>
-                                <label htmlFor="email">Email</label>
-                            </div>
+                                />
+                                <Form.Label>Email</Form.Label>
+                            </Form.Group>
 
-                            <div className="form-control">
+
+                            <Form.Group
+                                className="form-custom"
+                                controlId="formBasicPassword"
+                            >
                                 <span className="pass-icon"></span>
-                                <input
-                                    id="password"
+                                <Form.Control
+                                    type="password"
+                                    placeholder="Enter your password"
                                     name="password"
                                     value={form.password}
-                                    type="password"
-                                    placeholder="Enter Your Password..."
-                                    minLength="6"
                                     onChange={handleChange}
+                                    minLength={6}
                                     required
-                                ></input>
-                                <label htmlFor="password">Password</label>
-                            </div>
+                                />
+                                <Form.Label>Password</Form.Label>
+                            </Form.Group>
 
-                            <button class="bn54">
-                                <span class="bn54span">Sign Up</span>
+                            <button className="bn54">
+                                <span className="bn54span">Register</span>
                             </button>
-                            {err !== "" && <span className="err">{err}</span>}
+                            {err !== "" && (<span className="err">{err}</span>)}
+
                         </div>
-                        
-                    </form>
+                    </Form>
                 </div>
             </div>
         </>

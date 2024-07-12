@@ -11,7 +11,7 @@ export default function LogOut() {
                     Authorization: "Bearer " + cookie.get('e-commerce'),
                 }
             }, [])
-            console.log(res)
+            cookie.remove('e-commerce');
         }
         catch (err) {
             console.log(err)

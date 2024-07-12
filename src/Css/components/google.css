@@ -9,18 +9,25 @@
     align-items: center;
     justify-content: center;
     gap: 12px;
-    color: #000000e5;
+    color: #ffff;
     border: 2px solid #2c2c2c;
     border-radius: 8px;
-    background-color: transparent;
-    font-size: 16px;
+    background-color: #000000e5;
+    font-size: 1rem;
     text-decoration: none;
+    transition: 0.1s;
 
+}
+.google-wraper a:hover {
+    background-color: #ffff;
+    color: #000000e5;
 }
 .par {
     font-family: "Lato", sans-serif;
     font-weight: bold;
     margin:10px 0;
+    font-size: 1rem;
+    padding: 10px 0;
 }
 .google-icon {
     width: 25px;
