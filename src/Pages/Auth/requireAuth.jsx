@@ -3,11 +3,11 @@ import Cookie  from 'cookie-universal';
 import { useEffect, useState } from "react";
 import { baseUrl, USER } from './../../Api/Api';
 import LoadingSubmit from './../../Components/Loading/loading';
-import { AXIOS } from "../../Api/axios";
 import axios from "axios";
+import Err403 from "./403";
 
 
-export default function RequireAuth() {
+export default function RequireAuth( {allowedRole} ) {
     // User
     const [user, setUser] = useState("");
     const nav = useNavigate(); 
@@ -26,6 +26,5 @@ export default function RequireAuth() {
     }, [])
 
 
-
-    return token ? (user === "" ? (<LoadingSubmit />) : (<Outlet />) ) : (<Navigate to={"/login"}  replace={true}/>);
+    return token ? (user === "" ? (<LoadingSubmit />) : allowedRole.includes(user.role) ? (<Outlet />) : (<Err403 role={user.role}/>) ) : (<Navigate to={"/login"}  replace={true}/>);
 }

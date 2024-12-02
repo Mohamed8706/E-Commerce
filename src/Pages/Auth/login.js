@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {  useEffect, useRef, useState } from "react";
 import { LOGIN, baseUrl } from "../../Api/Api";
 import axios from "axios";
 import LoadingSubmit from "./../../Components/Loading/loading";
@@ -30,8 +30,13 @@ import { Form } from "react-bootstrap";
     // Cookie
     const cookie = Cookie();
 
+    // Ref
+    const foc = useRef(null);
 
-
+    useEffect(() => {
+        foc.current.focus();
+    }, [])
+ 
     // handle form change
     function handleChange(e) {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -46,8 +51,14 @@ import { Form } from "react-bootstrap";
         setLoading(false);
         setErr("");
         const token = res.data.token;
-        cookie.set("e-commerce", token);
-        nav("/dashboard/users/", {replace : true});
+        const role = res.data.user.role;
+        const go = role === '1995' ? "/dashboard/users/" : (role === '1996' ? "/dashboard/writer/" : "/e-commerce");
+        cookie.set("e-commerce", token); 
+
+        nav(`${go}`, { replace: true });
+
+    
+        
         } catch (err) {
         setLoading(false);
         if (err.response.status === 401) {
@@ -85,6 +96,7 @@ import { Form } from "react-bootstrap";
                     value={form.email}
                     onChange={handleChange}
                     required
+                    ref={foc}
                     />
                     <Form.Label>Email</Form.Label>
                 </Form.Group>

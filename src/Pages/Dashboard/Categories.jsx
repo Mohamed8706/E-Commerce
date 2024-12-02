@@ -1,7 +1,6 @@
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { useState } from "react";
-import {baseUrl, USER, USERS } from "../../Api/Api";
-
+import {baseUrl, Cat, CAT } from "../../Api/Api";
 import { Menu } from "../../context/menucontext";
 import { WindowSize } from "../../context/windowresize";
 import { Link } from "react-router-dom";
@@ -10,58 +9,44 @@ import Cookie  from 'cookie-universal';
 import TableShow from "../../Components/Dashboard/Table";
 import useSWR from "swr";
 
-
-export default function Users() {
+export default function Categories() {
     // States 
-    const [users, setUsers] = useState([]);
-    const [currentUser, setCurrentUser] = useState("");
+    const [cat, setCat] = useState([]);
+    
+    const [nocat, setNoCat] = useState(false);
     const menuOpen = useContext(Menu);
     const isOpen = menuOpen.isOpen;
     const resizeWidth = useContext(WindowSize);
-    
-
+    const [deleteCat, setDeleteCat] = useState(false);
 
     // Cookies
     const cookie = Cookie();
     const token = cookie.get("e-commerce")
 
 
-    // Get Current User
-    useEffect(() => {
-        axios.get(`${baseUrl}/${USER}`, {
+    // Get All Categories
+    const getCategories = (Categories) => {
+            axios.get(`${baseUrl}/${Categories}`, {
             headers: {
                 Authorization: "Bearer " + token,
             }
-        }).then(res => setCurrentUser(res.data))
-    }, [])
-
-    // Get All Users
-    const fetchUsers = (Users) => {
-        axios.get(`${baseUrl}/${Users}`, {
-            headers: {
-                Authorization: "Bearer " + token,
-            }
-        }).then(data => setUsers(data.data))
-            .catch(err => console.log(err))
+        }).then(data => setCat(data.data))
+        .then(() => setNoCat(true))
+        .catch(err => console.log(err))
     }
-        
-const { mutate } = useSWR(`${USERS}`, fetchUsers);
 
-    // Passing Headers 
-    const header = [
-    {   value: 'name',
-        name: 'Username'
-    },{
-        value: 'email',
-        name: 'Email'
+    const { mutate } = useSWR(`${CAT}`, getCategories)    
+
+   // Passing Headers 
+    const header = [{
+        value:'title',
+        name: 'Title'
     },
     {
-        value: 'role',
-        name: 'Role'
-    }
+        value: 'image',
+        name: 'Image'
+    },
 ]
-
-
 
     return (
         <div className="bg-white p-2" style={{ overflowX: "auto", 
@@ -81,14 +66,11 @@ const { mutate } = useSWR(`${USERS}`, fetchUsers);
                     
 }}>
     <div className="d-flex align-items-center justify-content-between">
-            <h1>Users Page</h1>
-            <Link className="btn btn-primary" to="/dashboard/user/add" style={{color:"black"}}>Add User</Link>
+        <h1>Categories Page</h1>
+        <Link className="btn btn-primary" to="/dashboard/category/add" style={{color:"black"}}>Add Category</Link>
+        
     </div>
-            <TableShow header={header} 
-            data={users} 
-            mutate={mutate}  
-            delete={USER} 
-            currentUser={currentUser}/>
-        </div>
+    <TableShow header={header} mutate={mutate} data={cat} delete={Cat} deleteIcon={true} currentUser=""/>
+    </div>
     )
 }

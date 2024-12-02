@@ -27,3 +27,11 @@
         transform: rotate(360deg);
     }
 }
+/* tableLoading */
+.first-icon {
+    padding: 10px 0;
+    border-radius: 14px;
+    animation: pulse;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}

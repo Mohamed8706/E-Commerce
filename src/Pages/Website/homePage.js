@@ -1,7 +1,10 @@
+import TopBar from "../../Components/Dashboard/topbar";
+
 export default function HomePage() {
     return(
         <div className="App">
-            <h1>HomePage</h1>
+            <TopBar bar={false}/>
+            <h1 style={{marginBlock: "70px"}}>HomePage</h1>
         </div>
     ) 
 }

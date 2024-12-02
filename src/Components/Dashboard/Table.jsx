@@ -1,0 +1,104 @@
+import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import axios from "axios";
+import { Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { baseUrl, USER } from "../../Api/Api";
+import  Cookie  from 'cookie-universal';
+import TableLoading from './../Loading/tableLoading';
+
+export default function TableShow(props) {
+    const currentUser = props.currentUser || {
+        'name': "",
+    };
+
+    // Cookies
+    const cookie = Cookie();
+    const token = cookie.get("e-commerce")
+    
+        // Handle Delete Button
+    async function handleDelete(id){
+    
+            try {
+                axios.delete(`${baseUrl}/${props.delete}/${id}`, {
+                    headers: {
+                        Authorization: "Bearer " + token,
+                    }
+                }).then(() => props.mutate());
+                
+            
+
+            } catch (err) {
+                console.log(err)
+            }
+        
+
+    }
+
+    const headerShow = props.header.map((item, key) => <th key={key}>{item.name}</th>)
+    const dataShow = props.data.map((item, ind) => 
+
+    <tr key={ind}>
+        <td style={{height:"100px"}}><div className="flex flex-row w-full h-full items-center
+        justify-center"> {ind + 1}</div></td>
+        {props.header.map((item2, ind2) => 
+        <td key={ind2} style={{maxHeight:"100px"}}>
+            <div className="flex flex-row h-[100px] items-center justify-center text-xl">
+            {
+            item[item2.value] === '1995' ? 'Admin' :
+            item[item2.value] === '2001' ? 'User' : 
+            item[item2.value] === '1996' ? 'Writer' : 
+            item[item2.value] === '1999' ? 'Product Manager' :
+            item2.value === "image" ? <img className="object-contain h-full w-full" 
+            src={item[item2.value]} alt="category"/> :
+            <>{item[item2.value]} {currentUser && item[item2.value] === props.currentUser.name && " (You)"}</>
+            }
+            </div>
+            
+            
+        </td>)}
+            
+        <td style={{textAlign: "center", height:"100px"}}>
+            <div className="flex flex-row w-full h-full items-center
+        justify-center">
+            { item.name !== currentUser.name  && 
+            <FontAwesomeIcon icon={faTrash} style={{ marginRight: "8px", color: "orangered", cursor: "pointer",
+                width:"30px",height:"30px"}} 
+            onClick={() => handleDelete(item.id)}
+            /> 
+            }
+        
+
+                
+                
+                <Link to={`${item.id}`}>
+                <FontAwesomeIcon icon={faEdit} style={{ color: "#038edc", cursor: "pointer", 
+                    width:"30px",height:"30px" }}/>
+                </Link>
+                
+
+            </div>
+                </td>
+    </tr> 
+)
+    return (
+            <Table striped bordered hover >
+                <thead>
+                    <tr>
+                    <th>ID</th>
+                    {headerShow}
+                    <th>Action</th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    
+                    {props.data.length === 0 ?
+                        <tr><TableLoading /><TableLoading />{props.header.map((item) => <TableLoading />)}</tr> :
+                        dataShow } 
+                    {/* {users.length === 0 && nocat && <tr><td colSpan={12} className="text-center">No Catogries Found</td></tr>} */} 
+                </tbody>
+            </Table>
+        
+    )
+}

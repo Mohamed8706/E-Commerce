@@ -1,22 +1,24 @@
-.btn {
-    outline: none;
-    border: 0;
+.btn{
+    outline: none !important;
+    border: 2px solid transparent !important;
     padding: 20px 30px;
     border-radius: 14px;
     cursor: pointer;
-    font-weight: bold;
+    font-weight: bold !important;
+    transition: 0.1s !important;
 }
 
+
 .btn-primary {
-    background-color: rgba(6, 196, 79, 0.8);
-    color: white;
-    font-size: 18px;
+    background-color: #0d6efd !important;
+    color: white !important;
+    font-size: 18px !important;
 }
 
 .btn:hover {
-    border: 2px solid #06c44fcc;
-    background-color: transparent;
-    color: black;
+    border: 2px solid #0d6efd !important;
+    background-color: transparent !important;
+    color: black !important;
 }
 
 .bn54 {

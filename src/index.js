@@ -12,8 +12,7 @@ import "./Pages/Dashboard/dashboard.css"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import  MenuContext  from './context/menucontext';
 import WindowResize from './context/windowresize';
-
-
+import 'animate.css';
 
 
 
