@@ -17,6 +17,9 @@ import Categories from "./Pages/Dashboard/Categories";
 import AddCategory from "./Pages/Dashboard/AddCategory";
 import CategoryUpdate from "./Pages/Dashboard/CategoryUpdate";
 import Test from "./Pages/Website/test";
+import Products from "./Pages/Dashboard/Products";
+import ProductsPage from "./Pages/Dashboard/Products";
+import AddProduct from "./Pages/Dashboard/AddProduct";
 
 
 
@@ -37,20 +40,24 @@ export default function App() {
                 {/* Protected Routes */}
                 <Route element={<RequireAuth allowedRole={["1995", "1996", "1999"]}/>}>
                 <Route path="/dashboard/" element={<Dashboard />}>
-                        <Route element={<RequireAuth allowedRole={["1995"]} />}>
+                <Route element={<RequireAuth allowedRole={["1995"]} />}>
                         <Route path="users" element={<Users />} />
                         <Route path="users/:id" element={<UserUpdate />} />
-                            <Route path="user/add" element={<AddUser />} />
-                        </Route>
-                    <Route element={<RequireAuth allowedRole={["1996", "1995"]} />}>
-                        <Route path="writer" element={<Writer />} />
-                    </Route>
-                    <Route element={<RequireAuth allowedRole={["1999","1995"]} />}>
+                        <Route path="user/add" element={<AddUser />} />
+                </Route>
+                <Route element={<RequireAuth allowedRole={["1996", "1995"]} />}>
+                    <Route path="writer" element={<Writer />} />
+                </Route>
+                <Route element={<RequireAuth allowedRole={["1999","1995"]} />}>
+                        {/* Categories */}
                         <Route path="categories" element={<Categories />} />
-                            <Route path="category/add" element={<AddCategory />} />
-                            <Route path="categories/:id" element={<CategoryUpdate />} />
-
-                    </Route>
+                        <Route path="category/add" element={<AddCategory />} />
+                        <Route path="categories/:id" element={<CategoryUpdate />} />
+                        {/* Products */}
+                        <Route path="products" element={<ProductsPage />} />
+                        <Route path="product/add" element={<AddProduct />} />
+                        <Route path="product/:id" element={<CategoryUpdate />} />
+                </Route>
                 </Route>
                 </Route>
             </Routes>

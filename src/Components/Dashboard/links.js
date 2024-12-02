@@ -1,4 +1,4 @@
-import { faCartPlus, faCartShopping, faPen, faPlus, faUsers } from "@fortawesome/free-solid-svg-icons";
+import { faCartPlus, faCartShopping, faPen, faPlus, faTruckFast, faTruckLoading, faTruckPickup, faUsers } from "@fortawesome/free-solid-svg-icons";
 
 export const links = [
     {
@@ -14,12 +14,6 @@ export const links = [
         role: "1995"
     },
     {
-        name: "Writer",
-        path: "/dashboard/writer",
-        icon: faPen,
-        role: ['1995', '1996']
-    },
-    {
         name: "Categoies",
         path: "/dashboard/categories",
         icon: faCartShopping,
@@ -30,6 +24,23 @@ export const links = [
         path: "/dashboard/category/add",
         icon: faCartPlus,
         role: ['1995', '1999']
-
+    }, 
+    {
+        name: "Products",
+        path: "products",
+        icon: faTruckFast,
+        role: ['1995', '1999']
+    },
+    {
+        name: "AddProduct",
+        path: "product/add",
+        icon: faTruckLoading,
+        role: ['1995', '1999']
+    },
+    {
+        name: "Writer",
+        path: "/dashboard/writer",
+        icon: faPen,
+        role: ['1995', '1996']
     }
 ]

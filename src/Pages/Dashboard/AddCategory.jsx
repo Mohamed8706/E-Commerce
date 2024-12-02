@@ -81,13 +81,6 @@ return (
             <div className="row " style={{margin:"15px", height:"70vh"}}>
                 <Form className="form" onSubmit={handleSubmit} style={{padding: "10px"}}>
                     <div className="custom-form">
-                        <div className="google-wraper">
-                            <a href="http://127.0.0.1:8000/login-google">
-                                <GoogleIcon className="google-icon" />
-                                <p className="par">Continue with Google</p>
-                            </a>
-                        </div>
-                        <span className="divider">or</span>
 
                         <Form.Group
                             className="form-custom"

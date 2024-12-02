@@ -17,3 +17,8 @@ export const GOOGLE_CALL_BACK = "auth/google/callback";
 // Categories
 export const CAT = 'categories';
 export const Cat = 'category';
+
+// Products 
+
+export const Products = 'products';
+export const Product = 'product';
