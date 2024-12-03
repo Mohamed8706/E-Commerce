@@ -12,8 +12,6 @@ import useSWR from "swr";
 export default function Categories() {
     // States 
     const [cat, setCat] = useState([]);
-    
-    const [nocat, setNoCat] = useState(false);
     const menuOpen = useContext(Menu);
     const isOpen = menuOpen.isOpen;
     const resizeWidth = useContext(WindowSize);
@@ -31,7 +29,6 @@ export default function Categories() {
                 Authorization: "Bearer " + token,
             }
         }).then(data => setCat(data.data))
-        .then(() => setNoCat(true))
         .catch(err => console.log(err))
     }
 

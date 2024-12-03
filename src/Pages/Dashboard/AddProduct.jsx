@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from "react";
-import { ADD, Cat, baseUrl } from "../../Api/Api";
+import { ADD, CAT, Cat, baseUrl } from "../../Api/Api";
 import axios from "axios";
 import LoadingSubmit from './../../Components/Loading/loading';
 import { useNavigate } from "react-router-dom";
 import Cookie from 'cookie-universal';
 import { Form } from "react-bootstrap";
+import useSWR from "swr";
 
 
 export default function AddProduct() {
 // States
 const  [form, setForm] = useState({
-    category: '',
+    category: 'Select Category',
     title: '',
     description: '',
     rating: '',
@@ -21,6 +22,11 @@ const  [form, setForm] = useState({
 })
 
 const [images, setImages] = useState('');
+
+const [cat, setCat] = useState([]);
+
+console.log(form)
+
 // Loading
 const [loading, setLoading] = useState(false);
 
@@ -44,10 +50,24 @@ const nav = useNavigate();
 const cookie = Cookie();
 const token = cookie.get("e-commerce");
 
+    // Get All Categories
+    const getCategories = (Categories) => {
+            axios.get(`${baseUrl}/${Categories}`, {
+            headers: {
+                Authorization: "Bearer " + token,
+            }
+        }).then(data => setCat(data.data))
+        .catch(err => console.log(err))
+    }
+
+    const { mutate } = useSWR(`${CAT}`, getCategories)    
+
 // handle form change
 function handleChange(e) {
     setForm({...form, [e.target.name] : e.target.value})
 }
+
+
 
 // handle form submit
 async function handleSubmit(e) {
@@ -81,10 +101,27 @@ async function handleSubmit(e) {
 return (
     <>
         {loading && <LoadingSubmit />}
-            <div className="row bg-gray-100" style={{margin:"2px", height:"100%"}}>
-                <Form onSubmit={handleSubmit} className="h-[90%] ">
-                    <div className="h-100 bg-white p-5 rounded-xl ">
+            <div className="row bg-gray-100" style={{margin:"2px", height:"100vh"}}>
+                <Form onSubmit={handleSubmit} className="h-[95%] ">
+                    <div className="h-100 bg-white p-5 rounded-xl shadow-2xl">
 
+
+
+                        <Form.Group className="form-custom "controlId="formCategory">
+                            <Form.Select
+                                className="w-100"
+                                name="category"
+                                value={form.category}
+                                onChange={(e) => handleChange(e)}
+                                ref={focus}
+                                
+                            >
+                                <option disabled>Select Category</option>
+                                {cat.map((cat, ind) => (
+                                    <option key={ind} value={cat.id}>{cat.title}</option>
+                                ))}
+                            </Form.Select>
+                        </Form.Group>
                         
 
                         <Form.Group
@@ -100,7 +137,7 @@ return (
                                 value={form.title}
                                 onChange={(e) => handleChange(e)}
                                 required
-                                ref={focus}
+                            
                             />
                             <Form.Label>Title</Form.Label>
                         </Form.Group>
