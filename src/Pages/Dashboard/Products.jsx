@@ -49,10 +49,6 @@ export default function ProductsPage() {
     {
         value: 'price',
         name: 'Price'
-    },
-    {
-        value: 'rating',
-        name: 'Rating'
     }
 ]
 

@@ -1,11 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { ADD, CAT, Cat, baseUrl } from "../../Api/Api";
+import { ADD, CAT, Product, baseUrl } from "../../Api/Api";
 import axios from "axios";
 import LoadingSubmit from './../../Components/Loading/loading';
 import { useNavigate } from "react-router-dom";
 import Cookie from 'cookie-universal';
 import { Form } from "react-bootstrap";
 import useSWR from "swr";
+import { faImage } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 
 
 export default function AddProduct() {
@@ -14,18 +17,18 @@ const  [form, setForm] = useState({
     category: 'Select Category',
     title: '',
     description: '',
-    rating: '',
     price: '',
     discount: '',
     About: ''
 
 })
 
-const [images, setImages] = useState('');
+const [images, setImages] = useState([]);
+console.log(images)
 
 const [cat, setCat] = useState([]);
 
-console.log(form)
+
 
 // Loading
 const [loading, setLoading] = useState(false);
@@ -74,7 +77,18 @@ async function handleSubmit(e) {
     e.preventDefault();
     setLoading(true)
     try {
-        const res = await axios.post(`${baseUrl}/${Cat}/${ADD}`, form, {
+        const data = new FormData();
+        data.append("category", form.category);
+        data.append("title", form.title);
+        data.append("description", form.description);
+        data.append("price", form.price);
+        data.append("discount", form.discount);
+        data.append("About", form.About);
+        for (let index = 0; index < images.length; index++) {
+            data.append("images[]", images[index])
+            
+        }
+        const res = await axios.post(`${baseUrl}/${Product}/${ADD}`, data, {
         headers: {
             Authorization: "Bearer " + token,
         },
@@ -96,18 +110,27 @@ async function handleSubmit(e) {
     }
 }
 
+// Maping 
+const categories = cat.map((cat, ind) => <option key={ind} value={cat.id}>{cat.title}</option>);
 
+const imagesShow = images.map((img, key) => <div className="flex flex-row border w-100 gap-2 p-2">
+    <img src={URL.createObjectURL(img)} alt="product" className="w-[80px]"/>
+    <div className="flex justify-center flex-col">
+    <p>{img.name}</p>
+    <p>{img.size}.byte</p>
+    </div>    
+    </div>)
 
 return (
     <>
         {loading && <LoadingSubmit />}
-            <div className="row bg-gray-100" style={{margin:"2px", height:"100vh"}}>
-                <Form onSubmit={handleSubmit} className="h-[95%] ">
+            <div className="row bg-gray-100" style={{margin:"2px"}}>
+                <Form onSubmit={handleSubmit} className="h-[95%] m-1">
                     <div className="h-100 bg-white p-5 rounded-xl shadow-2xl">
 
 
 
-                        <Form.Group className="form-custom "controlId="formCategory">
+                        <Form.Group className="form-custom "controlId="formcategory">
                             <Form.Select
                                 className="w-100"
                                 name="category"
@@ -117,9 +140,7 @@ return (
                                 
                             >
                                 <option disabled>Select Category</option>
-                                {cat.map((cat, ind) => (
-                                    <option key={ind} value={cat.id}>{cat.title}</option>
-                                ))}
+                            {categories}
                             </Form.Select>
                         </Form.Group>
                         
@@ -163,26 +184,26 @@ return (
 
                         <Form.Group
                             className="form-custom"
-                            controlId="formdrating"
+                            controlId="formprice"
                         >
                             
                             <Form.Control
                                 className="w-100"
                                 type="text"
-                                placeholder="Rating..."
-                                name="rating"
-                                value={form.rating}
+                                placeholder="Price..."
+                                name="price"
+                                value={form.price}
                                 onChange={(e) => handleChange(e)}
                                 required
                                 
                             />
-                            <Form.Label>Rating</Form.Label>
+                            <Form.Label>Price</Form.Label>
                         </Form.Group>
 
 
                         <Form.Group
                             className="form-custom"
-                            controlId="formdabout"
+                            controlId="formdiscount"
                         >
                             
                             <Form.Control
@@ -200,7 +221,7 @@ return (
 
                         <Form.Group
                             className="form-custom"
-                            controlId="formdabout"
+                            controlId="formabout"
                         >
                             
                             <Form.Control
@@ -217,7 +238,7 @@ return (
                         </Form.Group>
 
 
-                        {/* <Form.Group
+                        <Form.Group
                             className="form-custom relative"
                             controlId="image"
                         >
@@ -228,13 +249,15 @@ return (
                             <Form.Control
                                 type="file"
                                 name="image"
-                                required
-                                onChange={(e) =>  setImages(e.target.files.item(0))}
+                                multiple
+                                onChange={(e) =>  setImages([...e.target.files])}
                             />
-                            <Form.Label>Image</Form.Label>
-                        </Form.Group> */}
+                        
+                        </Form.Group>
 
-
+                    <div className="flex flex-col p-4 items-start justify-center gap-4">
+                            {imagesShow} 
+                    </div>
 
 
                         <button disabled={form.title.length > 1 ? false : true} className="bn54">
