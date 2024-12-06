@@ -40,11 +40,16 @@ const [err, setErr] = useState("");
 // Ref
 const focus = useRef("");
 
-// Handle focus 
+const openImage = useRef(null);
+
+// Handle refs 
 useEffect(() => {
     focus.current.focus();
 }, [])
 
+function uploadImage () {
+    openImage.current.click();
+}
 // Navigate
 const nav = useNavigate();
 
@@ -117,7 +122,10 @@ const imagesShow = images.map((img, key) => <div className="flex flex-row border
     <img src={URL.createObjectURL(img)} alt="product" className="w-[80px]"/>
     <div className="flex justify-center flex-col">
     <p>{img.name}</p>
-    <p>{img.size}.byte</p>
+    <p>{img.size / 1024  < 900 
+            ? (img.size / 1024).toFixed(2) + "KB"
+            : (img.size / (1024 * 1024)).toFixed(2) + "MB"} 
+    </p>
     </div>    
     </div>)
 
@@ -243,10 +251,9 @@ return (
                             controlId="image"
                         >
                             
-                        <FontAwesomeIcon icon={faImage} color="#06c44fcc" 
-                        className="absolute w-[30px] h-[30px] top-[50%] left-[93%] sm:left-[94%] md:left-[71%]
-                        lg:left-[75%] transform translate-y-[-50%] translate-x-[-50%]" /> 
                             <Form.Control
+                                ref={openImage}
+                                hidden
                                 type="file"
                                 name="image"
                                 multiple
@@ -254,7 +261,12 @@ return (
                             />
                         
                         </Form.Group>
-
+                        <div onClick={uploadImage}
+                        className="flex items-center justify-center py-3 w-100 flex-col rounded 
+                        border-dashed border-[2px] gap-2 border-[#0086fe] cursor-pointer">
+                        <img src={require("../../Assets/upload.png")} alt="upload" className="w-[100px]"/>
+                        <p className="font-bold text-[#0086fe]">Upload Images</p>
+                        </div>
                     <div className="flex flex-col p-4 items-start justify-center gap-4">
                             {imagesShow} 
                     </div>
