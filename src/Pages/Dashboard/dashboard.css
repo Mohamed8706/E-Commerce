@@ -99,8 +99,8 @@ tr th, tr td{
 }
 .inner-progress {
     background-color: #56b6ff;
-    width: 50%;
     position: relative;
+    width: 0%;
     height: 100%;
     border-radius: inherit;
     display: block;

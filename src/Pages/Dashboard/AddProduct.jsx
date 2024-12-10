@@ -20,6 +20,7 @@ const [cat, setCat] = useState([]);
 const [loading, setLoading] = useState(false);
 const [sent, setSent] = useState(false);
 const [err, setErr] = useState("");
+
 // Forms
 const  [form, setForm] = useState({
     category: 'Select Category',
@@ -45,6 +46,9 @@ const dummyData = {
 const focus = useRef("");
 
 const openImage = useRef(null);
+
+const progress = useRef([]);
+
 
 // Handle refs 
 useEffect(() => {
@@ -84,6 +88,7 @@ function handleChange(e) {
     }
 
 }
+
 
 
 
@@ -128,6 +133,41 @@ async function handleFormSubmit() {
         console.log(error)
     }
 }
+const j = useRef(-1)
+// Handle images changes
+async function HandleImagesChanges(e) {
+    setImages((prev) => [...prev, ...e.target.files]);
+    const imagesAsFiles = e.target.files;
+    for (let i = 0; i < imagesAsFiles.length; i++) {
+        j.current++;
+        const data = new FormData();
+        data.append('image', imagesAsFiles[i]);
+        data.append('product_id', id)
+        try {
+            const res = await axios.post(`${baseUrl}/product-img/add`, data, {
+                headers:{
+                    Authorization: "Bearer " + token
+                }, 
+                onUploadProgress: (ProgressEvent) => {
+                    const {loaded, total} = ProgressEvent;
+                    const result = Math.floor((loaded * 100) / total);
+                    if (result % 10 === 0) {
+                        progress.current[j.current].style.width =`${result}%`;
+                        progress.current[j.current].setAttribute('percent', `${result}%`);
+                    }
+
+                        
+                    
+
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+}
+
 
 // Maping 
 const categories = cat.map((cat, ind) => <option key={ind} value={cat.id}>{cat.title}</option>);
@@ -145,7 +185,7 @@ const imagesShow = images.map((img, key) =>
     </div>    
     </div>
     <div className="custom-progress">
-        <span percent={'50%'} className="inner-progress">
+        <span ref={(e) => (progress.current[key] = e)} className="inner-progress">
 
         </span>
     </div>
@@ -283,7 +323,7 @@ return (
                                 type="file"
                                 name="image"
                                 multiple
-                                onChange={(e) =>  setImages([...e.target.files])}
+                                onChange={HandleImagesChanges}
                             />
                         
                         </Form.Group>
