@@ -4,10 +4,11 @@ import axios from "axios";
 import LoadingSubmit from './../../Components/Loading/loading';
 import { useNavigate } from "react-router-dom";
 import Cookie from 'cookie-universal';
-import { Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import useSWR from "swr";
-import { faImage } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
 
 
 
@@ -15,6 +16,7 @@ export default function AddProduct() {
 // States
 const [id, setId] = useState("");
 const [images, setImages] = useState([]);
+
 const [cat, setCat] = useState([]);
 // Loading
 const [loading, setLoading] = useState(false);
@@ -48,6 +50,8 @@ const focus = useRef("");
 const openImage = useRef(null);
 
 const progress = useRef([]);
+
+const imagesId = useRef([]);
 
 
 // Handle refs 
@@ -133,62 +137,74 @@ async function handleFormSubmit() {
         console.log(error)
     }
 }
-const j = useRef(-1)
+let j = useRef(-1)
 // Handle images changes
 async function HandleImagesChanges(e) {
     setImages((prev) => [...prev, ...e.target.files]);
     const imagesAsFiles = e.target.files;
+
     for (let i = 0; i < imagesAsFiles.length; i++) {
         j.current++;
         const data = new FormData();
-        data.append('image', imagesAsFiles[i]);
-        data.append('product_id', id)
+        data.append("image", imagesAsFiles[i]);
+        data.append("product_id", id);
         try {
             const res = await axios.post(`${baseUrl}/product-img/add`, data, {
                 headers:{
                     Authorization: "Bearer " + token
-                }, 
+                },
                 onUploadProgress: (ProgressEvent) => {
                     const {loaded, total} = ProgressEvent;
                     const result = Math.floor((loaded * 100) / total);
                     if (result % 10 === 0) {
-                        progress.current[j.current].style.width =`${result}%`;
-                        progress.current[j.current].setAttribute('percent', `${result}%`);
+                        progress.current[j.current].style.width = `${result}%`;
+                        progress.current[j.current].setAttribute('percent', result + '%');
                     }
-
-                        
-                    
-
-                }
-            })
+                } 
+            }).then((data) => imagesId.current[j.current] = data.data.id)
         } catch (error) {
-            console.log(error)
+            console.log("Could not send the image", error)
         }
-
+        
     }
 }
-
+// Handle deleting image 
+async function HandleDeletingImages(id, name) {
+    setImages((prev) => prev.filter((img) => img.name !== name));
+    imagesId.current = imagesId.current.filter((i) => i !== id);
+    j.current--;
+    try {
+        const res = await axios.delete(`${baseUrl}/product-img/${id}`, {
+            headers:{
+                Authorization: "Bearer " + token
+            }
+        })
+    } catch (error) {
+        console.log("Could not delete image",error)
+    }
+}
 
 // Maping 
 const categories = cat.map((cat, ind) => <option key={ind} value={cat.id}>{cat.title}</option>);
 
 const imagesShow = images.map((img, key) => 
-    <div key={key} className="w-100 border p-2">
+    <div key={key} className="w-100 relative border p-2">
     <div className="flex flex-row gap-2 ">
     <img src={URL.createObjectURL(img)} alt="product" className="w-[80px]"/>
-    <div className="flex justify-center flex-col">
-    <p>{img.name}</p>
-    <p>{img.size / 1024  < 900 
-            ? (img.size / 1024).toFixed(2) + "KB"
-            : (img.size / (1024 * 1024)).toFixed(2) + "MB"} 
-    </p>
-    </div>    
+    <div>
+        <p className="mb-1">{img.name}</p>
+        <p>{(img.size / 1024 < 900 ? (img.size / 1024).toFixed(2) + "KB" : 
+        (img.size / (1024 * 1024)).toFixed(2) + 'MB' )}</p>
     </div>
-    <div className="custom-progress">
-        <span ref={(e) => (progress.current[key] = e)} className="inner-progress">
-
-        </span>
     </div>
+    <div  className="custom-progress">
+            <span ref={(e) => [progress.current[key] = e]} className="inner-progress"></span>
+    </div>
+            <FontAwesomeIcon icon={faTrash} style={{color: "orangered"}} 
+            className="w-[30px] h-[30px] cursor-pointer mr-[8px] absolute right-4 top-4"
+            onClick={() => HandleDeletingImages(imagesId.current[key], img.name)}
+            /> 
+        
     </div>
     )
 
@@ -324,13 +340,14 @@ return (
                                 name="image"
                                 multiple
                                 onChange={HandleImagesChanges}
+                                disabled={!sent}
                             />
                         
                         </Form.Group>
-                        <div onClick={uploadImage}
+                        <div onClick={uploadImage} 
                         className="flex items-center justify-center py-3 w-100 flex-col rounded 
-                         gap-2 cursor-pointer"
-                        style={{border: !sent ? "2px dashed gray" : "2px dashed #0086fe"}}
+                         gap-2 "
+                        style={{border: !sent ? "2px dashed gray" : "2px dashed #0086fe", cursor: sent && "pointer"}}
                         >
                         <img style={{filter: !sent && "grayscale(1)"}} src={require("../../Assets/upload.png")} alt="upload" className="w-[100px]"/>
                         <p style={{color: !sent ? "gray" : "#0086fe"}} className="font-bold">Upload Images</p>
