@@ -1,23 +1,21 @@
 import { useContext } from "react"
 import { useState } from "react";
-import {baseUrl, Product, Products } from "../../Api/Api";
-import { Menu } from "../../context/menucontext";
-import { WindowSize } from "../../context/windowresize";
+import {baseUrl, Cat, CAT } from "../../../Api/Api";
+import { Menu } from "../../../context/menucontext";
+import { WindowSize } from "../../../context/windowresize";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Cookie  from 'cookie-universal';
-import TableShow from "../../Components/Dashboard/Table";
+import TableShow from "../../../Components/Dashboard/Table";
 import useSWR from "swr";
 
-
-export default function ProductsPage() {
+export default function Categories() {
     // States 
-    const [products, setProducts] = useState([]);
-    
-    const [noproducts, setNoProducts] = useState(false);
+    const [cat, setCat] = useState([]);
     const menuOpen = useContext(Menu);
     const isOpen = menuOpen.isOpen;
     const resizeWidth = useContext(WindowSize);
+    const [deleteCat, setDeleteCat] = useState(false);
 
     // Cookies
     const cookie = Cookie();
@@ -25,17 +23,16 @@ export default function ProductsPage() {
 
 
     // Get All Categories
-    const getProducts = (Products) => {
-            axios.get(`${baseUrl}/${Products}`, {
+    const getCategories = (Categories) => {
+            axios.get(`${baseUrl}/${Categories}`, {
             headers: {
                 Authorization: "Bearer " + token,
             }
-        }).then(data => setProducts(data.data))
-        .then(() => setNoProducts(true))
+        }).then(data => setCat(data.data))
         .catch(err => console.log(err))
     }
 
-    const { mutate } = useSWR(`${Products}`, getProducts)    
+    const { mutate } = useSWR(`${CAT}`, getCategories)    
 
    // Passing Headers 
     const header = [{
@@ -43,13 +40,9 @@ export default function ProductsPage() {
         name: 'Title'
     },
     {
-        value: 'description',
-        name: 'Description'
+        value: 'image',
+        name: 'Image'
     },
-    {
-        value: 'price',
-        name: 'Price'
-    }
 ]
 
     return (
@@ -70,11 +63,11 @@ export default function ProductsPage() {
                     
 }}>
     <div className="d-flex align-items-center justify-content-between">
-        <h1>Products Page</h1>
-        <Link className="btn btn-primary" to="/dashboard/product/add" style={{color:"black"}}>Add Product</Link>
+        <h1>Categories Page</h1>
+        <Link className="btn btn-primary" to="/dashboard/category/add" style={{color:"black"}}>Add Category</Link>
         
     </div>
-    <TableShow header={header} mutate={mutate} data={products} delete={Product} deleteIcon={true} currentUser=""/>
+    <TableShow header={header} mutate={mutate} data={cat} delete={Cat} deleteIcon={true} currentUser=""/>
     </div>
     )
 }

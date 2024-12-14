@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { ADD, CAT, Product, baseUrl } from "../../Api/Api";
+import { ADD, CAT, Product, baseUrl } from "../../../Api/Api";
 import axios from "axios";
-import LoadingSubmit from './../../Components/Loading/loading';
+import LoadingSubmit from '../../../Components/Loading/loading';
 import { useNavigate } from "react-router-dom";
 import Cookie from 'cookie-universal';
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import useSWR from "swr";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
@@ -349,7 +349,7 @@ return (
                          gap-2 "
                         style={{border: !sent ? "2px dashed gray" : "2px dashed #0086fe", cursor: sent && "pointer"}}
                         >
-                        <img style={{filter: !sent && "grayscale(1)"}} src={require("../../Assets/upload.png")} alt="upload" className="w-[100px]"/>
+                        <img style={{filter: !sent && "grayscale(1)"}} src={require("../../../Assets/upload.png")} alt="upload" className="w-[100px]"/>
                         <p style={{color: !sent ? "gray" : "#0086fe"}} className="font-bold">Upload Images</p>
                         </div>
                     <div className="flex flex-col p-4 items-start justify-center gap-4">

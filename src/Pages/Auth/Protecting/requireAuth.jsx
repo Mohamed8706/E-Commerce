@@ -1,10 +1,10 @@
 import { Navigate, Outlet, useNavigate } from "react-router-dom";
 import Cookie  from 'cookie-universal';
 import { useEffect, useState } from "react";
-import { baseUrl, USER } from './../../Api/Api';
-import LoadingSubmit from './../../Components/Loading/loading';
+import { baseUrl, USER } from '../../../Api/Api';
+import LoadingSubmit from '../../../Components/Loading/loading';
 import axios from "axios";
-import Err403 from "./403";
+import Err403 from "../Errors/403";
 
 
 export default function RequireAuth( {allowedRole} ) {

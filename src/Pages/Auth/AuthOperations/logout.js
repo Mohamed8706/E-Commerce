@@ -1,5 +1,5 @@
 import axios from "axios"
-import { LOGOUT, baseUrl } from "../../Api/Api"
+import { LOGOUT, baseUrl } from "../../../Api/Api"
 import  Cookie  from 'cookie-universal';
 
 export default function LogOut() {

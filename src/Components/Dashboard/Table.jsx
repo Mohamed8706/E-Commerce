@@ -34,23 +34,25 @@ export default function TableShow(props) {
         
 
     }
-
+console.log(props.data)
     const headerShow = props.header.map((item, key) => <th key={key}>{item.name}</th>)
     const dataShow = props.data.map((item, ind) => 
 
     <tr key={ind}>
-        <td style={{height:"100px"}}><div className="flex flex-row w-full h-full items-center
+        <td key={ind} style={{height:"100px"}}><div className="flex flex-row w-full h-full items-center
         justify-center"> {ind + 1}</div></td>
         {props.header.map((item2, ind2) => 
-        <td key={ind2} style={{maxHeight:"100px"}}>
-            <div className="flex flex-row h-[100px] items-center justify-center text-xl">
+        <td key={ind2} className="h-[100px]">
+            <div className="flex flex-row h-full gap-2 items-center justify-center flex-wrap text-xl">
             {
             item[item2.value] === '1995' ? 'Admin' :
             item[item2.value] === '2001' ? 'User' : 
             item[item2.value] === '1996' ? 'Writer' : 
             item[item2.value] === '1999' ? 'Product Manager' :
             item2.value === "image" ? <img className="object-contain h-full w-full" 
-            src={item[item2.value]} alt="category"/> :
+            src={item[item2.value]} alt="image"/> : 
+            item2.value === "images" ? item[item2.value].map((i) => 
+            <img src={i.image} alt="in" className="w-32 h-32"/>) : 
             <>{item[item2.value]} {currentUser && item[item2.value] === props.currentUser.name && " (You)"}</>
             }
             </div>

@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { Form } from "react-bootstrap";
 import axios from "axios";
-import { baseUrl, CAT, Cat } from "../../Api/Api";
+import { baseUrl, USER } from "../../../Api/Api";
 import { useNavigate, useParams } from "react-router-dom";
-import LoadingSubmit from './../../Components/Loading/loading';
+import LoadingSubmit from '../../../Components/Loading/loading';
 import  Cookie  from 'cookie-universal';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faImage } from "@fortawesome/free-solid-svg-icons";
 
 
 
-export default function CategoryUpdate() {
-const [title, setTitle] = useState("");
-const [image, setImage] = useState("");
+export default function UserUpdate() {
+    const [form, setForm] = useState({
+        name: "",
+        email: "",
+        role: ""
+    })  
 
-
-    const { id }  = useParams();
+    const { id } = useParams()
     const nav = useNavigate("");
 
     const [disable, setDisable] = useState(true);
@@ -45,35 +45,35 @@ sections.forEach((el) => {
 })
 
 
-
+    function handleChange(e) {
+        setForm({ ...form, [e.target.name]: e.target.value });
+    }
     
     // Get user details to fill up inputs
     useEffect(() => {
         setLoading(true)
-        axios.get(`${baseUrl}/${Cat}/${id}`, {
+        axios.get(`${baseUrl}/${USER}/${id}`, {
             headers:{
             Authorization: "Bearer " + token,
             }
         })
-        .then((data) => {setTitle(data.data.title)})
+        .then((data) => { 
+            setForm({ ...form, name : data.data.name, email : data.data.email, role: data.data.role});})
         .then(() => setLoading(false))
         .then(() => setDisable(false))
-        .catch((err) => console.log(err))
+        .catch(() => nav('/dashboard/user/page/404', {replace: true}))
     }, [])
 
     async function handleUpdate(e) {
         setLoading(true)
         e.preventDefault();
-        const form = new FormData();
-        form.append("title", title);
-        form.append("image", image);
         try {
-        const res = await axios.post(`${baseUrl}/${Cat}/edit/${id}`, form, {
+        const res = await axios.post(`${baseUrl}/${USER}/edit/${id}`, form, {
         headers: {
             Authorization: "Bearer " + token,
             },
         });
-        nav("/dashboard/categories")
+        nav("/dashboard/users")
         setLoading(false)
         
         } catch (err){
@@ -92,43 +92,57 @@ sections.forEach((el) => {
         <Form.Group
             className="form-custom"
             controlId="formBasicName"
-            id="my-select"
         >
             <span className="user-icon"></span>
             <Form.Control
                 type="text"
-                placeholder="Title"
-                name="title"
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Enter your Name"
+                name="name"
+                value={form.name}
+                onChange={handleChange}
                 required
             />
-            <Form.Label>Title</Form.Label>
-
+            <Form.Label>Name</Form.Label>
         </Form.Group>
+
         <Form.Group
-            className="form-custom relative"
-            controlId="image"
-            id="my-select"
+            className="form-custom"
+            controlId="formBasicEmail"
         >
-            
-        <FontAwesomeIcon icon={faImage} color="#06c44fcc" 
-        className="absolute w-[30px] h-[30px] top-[50%] left-[93%] sm:left-[94%] md:left-[71%]
-        lg:left-[75%] transform translate-y-[-50%] translate-x-[-50%]" /> 
+            <span className="email-icon"></span>
             <Form.Control
-                type="file"
-                name="image"
-                onChange={(e) => setImage(e.target.files.item(0))}
+                type="email"
+                placeholder="Enter your e-mail"
+                name="email"
+                value={form.email}
+                onChange={handleChange}
                 required
             />
-            <Form.Label>Image</Form.Label>
+            <Form.Label>Email</Form.Label>
         </Form.Group>
 
-
-
-    
         
-        <button className="bn54">
+        <Form.Group
+            className="form-custom"
+            controlId="formBasicRoles"
+        >
+            <Form.Select
+                name="role"
+                onChange={handleChange}
+                value={form.role}
+                id="mySelect"
+            > 
+            <option value="" disabled>Select A Role</option>
+            <option value="1995">Admin</option>
+            <option value="2001">User</option>
+            <option value="1996">Writer</option>
+            <option value="1999">Categories</option>
+
+            </Form.Select>
+            <Form.Label>Roles</Form.Label>
+        </Form.Group>
+        
+        <button disabled={disable} className="bn54">
             <span className="bn54span">Update</span>
         </button>
 
@@ -136,6 +150,5 @@ sections.forEach((el) => {
         </div>
         </>
     )
-
     
 }

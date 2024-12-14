@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from "react";
-import { ADD, REGISTER, USER, baseUrl } from "../../Api/Api";
+import { ADD, REGISTER, USER, baseUrl } from "../../../Api/Api";
 import axios from "axios";
-import LoadingSubmit from './../../Components/Loading/loading';
+import LoadingSubmit from '../../../Components/Loading/loading';
 import { useNavigate } from "react-router-dom";
 import Cookie from 'cookie-universal';
 import { Form } from "react-bootstrap";
-import { ReactComponent as GoogleIcon } from "../../Assets/icons8-google.svg";
+import { ReactComponent as GoogleIcon } from "../../../Assets/icons8-google.svg";
 
 
 export default function AddUser() {

@@ -7,7 +7,7 @@ import { Menu } from "../../context/menucontext";
 import axios from "axios";
 import { baseUrl, USER, USERS } from "../../Api/Api";
 import Cookie  from 'cookie-universal';
-import Err403 from "../Auth/403";
+import Err403 from "../Auth/Errors/403";
 
 export default function Dashboard() {
     const resizeWidth = useContext(WindowSize);
