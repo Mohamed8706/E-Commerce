@@ -211,7 +211,7 @@ const imagesShow = images.map((img, key) =>
 return (
     <>
         {loading && <LoadingSubmit />}
-            <div className="row bg-gray-100" style={{margin:"2px"}}>
+            <div className="row " style={{margin:"12px"}}>
                 <Form onSubmit={handleEdit} className="h-[95%] m-1">
                     <div className="h-100 bg-white p-5 rounded-xl shadow-2xl">
 

@@ -19,6 +19,7 @@ import CategoryUpdate from "./Pages/Dashboard/Categroies/CategoryUpdate";
 import Test from "./Pages/Website/test";
 import ProductsPage from "./Pages/Dashboard/Products/Products";
 import AddProduct from "./Pages/Dashboard/Products/AddProduct";
+import ProductUpdate from "./Pages/Dashboard/Products/ProductUpate";
 
 
 
@@ -55,7 +56,7 @@ export default function App() {
                         {/* Products */}
                         <Route path="products" element={<ProductsPage />} />
                         <Route path="product/add" element={<AddProduct />} />
-                        <Route path="product/:id" element={<CategoryUpdate />} />
+                        <Route path="products/:id" element={<ProductUpdate />} />
                 </Route>
                 </Route>
                 </Route>

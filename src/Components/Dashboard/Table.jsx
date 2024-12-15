@@ -34,7 +34,6 @@ export default function TableShow(props) {
         
 
     }
-console.log(props.data)
     const headerShow = props.header.map((item, key) => <th key={key}>{item.name}</th>)
     const dataShow = props.data.map((item, ind) => 
 
