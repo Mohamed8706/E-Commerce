@@ -8,6 +8,7 @@ import  Cookie  from 'cookie-universal';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faImage, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { Menu } from "../../../context/menucontext";
+import useSWR from "swr";
 
 
 
@@ -26,14 +27,18 @@ const menuOpen = useContext(Menu);
 const isOpen = menuOpen.isOpen;
 
 const [images, setImages] = useState([]);
+const [productImages, setProductImages] = useState([]);
 
 
-const [disable, setDisable] = useState(true);
+
 const [loading, setLoading] = useState(false);
 
 
+// Refs
 const progress = useRef([]);
 const imagesId = useRef([]);
+const deletedImagesId = useRef([]);
+
 
 const openImage = useRef(null);
 
@@ -69,9 +74,9 @@ const token = cookie.get("e-commerce")
             category: data.data[0].category
         
         })
+        setProductImages(data.data[0].images)
     })
         .then(() => setLoading(false))
-        .then(() => setDisable(false))
         .catch((err) => console.log(err))
     }, [])
 
@@ -82,6 +87,7 @@ const token = cookie.get("e-commerce")
 
 async function handleUpdate(e) {
     setLoading(true)
+    handleDeletingProductImages()
     e.preventDefault();
     try {
     const res = await axios.post(`${baseUrl}/${Product}/edit/${id}`, form, {
@@ -130,7 +136,29 @@ async function HandleImagesChanges(e) {
     }
 }
 
-    // Handle deleting image 
+    // Handle deleting old images 
+function ProductImagesChanges(image) {
+setProductImages((prev) => prev.filter((img) => img.image !== image));
+}
+
+async function handleDeletingProductImages() {
+    const ids = deletedImagesId.current;
+    for (let i = 0; i < ids.length; i++) {
+        try {
+            const res = await axios.delete(`${baseUrl}/product-img/${ids[i]}`, {
+                headers: {
+                    Authorization: "Bearer " + token
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+        
+    }
+}
+
+
+// Handle Deleting new images
 async function HandleDeletingImages(id, name) {
     setImages((prev) => prev.filter((img) => img.name !== name));
     imagesId.current = imagesId.current.filter((i) => i !== id);
@@ -167,6 +195,26 @@ const imagesShow = images.map((img, key) =>
         
     </div>
     )
+    const k = useRef(-1);
+    const showProductImages = productImages.map((img, key) => 
+    <div key={key} className="w-100 relative border p-2">
+    <div className="flex flex-row gap-2 ">
+    <img src={img.image} alt="product" className="w-[80px]"/>
+    </div>
+            <FontAwesomeIcon icon={faTrash} style={{color: "orangered"}} 
+            className="w-[30px] h-[30px] cursor-pointer mr-[8px] absolute right-4 top-4"
+            onClick={() => {
+                ProductImagesChanges(img.image)
+                k.current++;
+                deletedImagesId.current[k.current] = img.id
+            }
+            }
+            /> 
+        
+    </div>
+    )
+
+
 
 
     return( 
@@ -313,13 +361,16 @@ const imagesShow = images.map((img, key) =>
         <p style={{color: "#0086fe"}} className="font-bold">Upload Images</p>
         </div>
     <div className="flex flex-col p-4 items-start justify-center gap-4">
-            {imagesShow} 
+            {showProductImages} 
     </div>
 
-
+    <div className="flex flex-col p-4 items-start justify-center gap-4">
+        {imagesShow} 
+    </div>
+            
     
         
-        <button className="bn54">
+        <button className="bn54" >
             <span className="bn54span">Update</span>
         </button>
 
