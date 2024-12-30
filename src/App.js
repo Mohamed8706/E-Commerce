@@ -9,8 +9,6 @@ import Users from './Pages/Dashboard/Users/users';
 import RequireAuth from "./Pages/Auth/Protecting/requireAuth";
 import UserUpdate from "./Pages/Dashboard/Users/userUpdate";
 import AddUser from "./Pages/Dashboard/Users/AddUser";
-
-import Writer from "./Pages/Dashboard/writer";
 import Err404 from "./Pages/Auth/Errors/404";
 import RequireBack from "./Pages/Auth/Protecting/requireBack";
 import Categories from "./Pages/Dashboard/Categroies/Categories";
@@ -44,9 +42,6 @@ export default function App() {
                         <Route path="users" element={<Users />} />
                         <Route path="users/:id" element={<UserUpdate />} />
                         <Route path="user/add" element={<AddUser />} />
-                </Route>
-                <Route element={<RequireAuth allowedRole={["1996", "1995"]} />}>
-                    <Route path="writer" element={<Writer />} />
                 </Route>
                 <Route element={<RequireAuth allowedRole={["1999","1995"]} />}>
                         {/* Categories */}

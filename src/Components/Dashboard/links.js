@@ -36,11 +36,5 @@ export const links = [
         path: "product/add",
         icon: faTruckLoading,
         role: ['1995', '1999']
-    },
-    {
-        name: "Writer",
-        path: "/dashboard/writer",
-        icon: faPen,
-        role: ['1995', '1996']
     }
 ]

@@ -38,7 +38,7 @@ export default function Dashboard() {
             <div className="content-container" style={{justifyContent: isOpen ? "inherit" : "center"}}>
                 <SideBar />
                 <div
-                    className="content"
+                    className="content p-3 bg-gray-100"
                     style={{
                         width:
                             resizeWidth.windowResizeWidth < "768"

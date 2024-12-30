@@ -84,9 +84,9 @@ export default function TableShow(props) {
 )
     return (
             <Table striped bordered hover >
-                <thead>
+                <thead >
                     <tr>
-                    <th>ID</th>
+                    <th >ID</th>
                     {headerShow}
                     <th>Action</th>
                     </tr>
