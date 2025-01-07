@@ -73,7 +73,7 @@ export default function TableShow(props) {
                 
                 
                 <Link to={`${item.id}`}>
-                <FontAwesomeIcon icon={faEdit} style={{ color: "#038edc", cursor: "pointer", 
+                <FontAwesomeIcon icon={faEdit} style={{ cursor: "pointer", 
                     width:"30px",height:"30px" }}/>
                 </Link>
                 
@@ -83,9 +83,10 @@ export default function TableShow(props) {
     </tr> 
 )
     return (
-            <Table striped bordered hover >
+        <div className="rounded-[12px] overflow-hidden ">
+                <Table striped hover >
                 <thead >
-                    <tr>
+                    <tr >
                     <th >ID</th>
                     {headerShow}
                     <th>Action</th>
@@ -100,6 +101,10 @@ export default function TableShow(props) {
                     {/* {users.length === 0 && nocat && <tr><td colSpan={12} className="text-center">No Catogries Found</td></tr>} */} 
                 </tbody>
             </Table>
+            </div>
+ 
+        
+
         
     )
 }

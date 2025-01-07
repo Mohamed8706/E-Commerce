@@ -8,20 +8,11 @@
 }
 body {
     margin: 0;
-    font-family: "lato", "sans-serif" !important;
+    font-family: "Roboto", sans-serif !important;
 }
-
+.f-cairo {
+    font-family: 'Cairo', sans-serif !important;
+}
 .h-100vh {
     height: 100vh !important;
-}
-.row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.row .col-12 {
-    width: 100%;
-}
-.row .col-6 {
-    width: 50%;
 }

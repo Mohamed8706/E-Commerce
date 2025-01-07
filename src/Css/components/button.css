@@ -10,13 +10,13 @@
 
 
 .btn-primary {
-    background-color: #0d6efd !important;
+    background-color: #06c44fcc !important;
     color: white !important;
     font-size: 18px !important;
 }
 
 .btn:hover {
-    border: 2px solid #0d6efd !important;
+    border: 2px solid #06c44fcc !important;
     background-color: transparent !important;
     color: black !important;
 }

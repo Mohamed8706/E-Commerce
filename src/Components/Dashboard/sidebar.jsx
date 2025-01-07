@@ -33,7 +33,7 @@
 
     return (
         <div
-        className="side-bar pt-3"
+        className="side-bar bg-white py-3 text-center"
         style={{
             left:
             resizeWidth.windowResizeWidth < "768" ? (isOpen ? 0 : "-100%") : 0,
@@ -44,6 +44,8 @@
             : "fit-content",
         }}
         >
+            {isOpen && <h5 className="font-bold">Dashboard</h5>}
+        
         {links.map((link, key) => {
             return link.role.includes(user.role) && <NavLink
             key={key}

@@ -65,7 +65,7 @@ export default function Users() {
 
 
     return (
-        <div className="bg-white p-2" style={{
+        <div className="bg-white rounded p-3 shadow " style={{
             overflowX: "auto",
             width:
                 resizeWidth.windowResizeWidth < "768"

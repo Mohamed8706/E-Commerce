@@ -60,14 +60,14 @@ export default function TopBar( {bar} ) {
         <>
         {loading && <LoadingSubmit />}
         <div className="top-bar d-flex align-items-center justify-content-between">
-            <div className="d-flex align-items-center gap-5"> 
-            <h5>E-Commerce</h5>
+            <div className="d-flex align-items-center gap-5 w-full"> 
+            <h5 className="font-bold">E-Commerce</h5>
             <FontAwesomeIcon onClick={() => menuOpen.setIsOpen(prev => !prev)} 
             icon={faBars} style={{transform:"translateY(-20%)", fontSize:"1.1rem", cursor:"pointer", display: bar ? "block" : "none"}}/>
             </div>
             <div>
 
-            {token ? <DropdownButton id="dropdown-basic-button" title={name} >   
+            {token ? <DropdownButton  id="dropdown-basic-button" title={name} >   
                     
                         <NavLink to="/e-commerce"  className={"d-flex align-items-center gap-2 m-2"}>
                                 Home

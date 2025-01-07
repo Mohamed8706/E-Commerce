@@ -1,44 +1,99 @@
-import { Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import SideBar from "../../Components/Dashboard/sidebar";
 import TopBar from "../../Components/Dashboard/topbar";
 import { useContext, useEffect, useState } from "react";
 import { WindowSize } from "../../context/windowresize";
 import { Menu } from "../../context/menucontext";
 import axios from "axios";
-import { baseUrl, USER, USERS } from "../../Api/Api";
+import { baseUrl, LOGOUT, USER, USERS } from "../../Api/Api";
 import Cookie  from 'cookie-universal';
 import Err403 from "../Auth/Errors/403";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { DropdownButton, NavLink } from "react-bootstrap";
+import loadingSubmit from './../../Components/Loading/loading';
 
 export default function Dashboard() {
     const resizeWidth = useContext(WindowSize);
     const menuOpen = useContext(Menu);
     const isOpen = menuOpen.isOpen;
-    const [users, setUsers] = useState([]);
-    const [err, setErr] = useState("");
+    const [name, setName] = useState("");
+    const [err, setErr] = useState([]);
+    const [loading, setLoading] = useState(false);
 
+
+  
     // Cookies
     const cookie = Cookie();
     const token = cookie.get("e-commerce")
 
+    // Navigation
+    const nav = useNavigate(); 
 
-        // Get All Users
+    // Get User Details
     useEffect(() => {
-        axios.get(`${baseUrl}/${USERS}`, {
+        axios.get(`${baseUrl}/${USER}`, {
             headers: {
                 Authorization: "Bearer " + token,
             }
-        }).then(data => setUsers(data))
-        .catch(err => setErr(err.response.status))
-    }, []);
+        })
+        .then(data => setName(data.data.name))        
+        .catch(err => console.log(err))
 
+    }, [])
+
+    // Top Navigation Bar 
+    const showBar = (  
+    <div className="flex p-2 px-3 mb-4 shadow rounded align-center justify-between gap-5 w-full bg-white"> 
+        <FontAwesomeIcon onClick={() => menuOpen.setIsOpen(prev => !prev)} 
+            icon={faBars} style={{transform:"translateY(-20%)", fontSize:"1.1rem", cursor:"pointer", color: 'black', alignSelf: 'center'}}/>
+
+            <DropdownButton id="dropdown-basic-button"  title={name} >   
+                    
+                        <Link  to="/e-commerce" key={1}  className={"d-flex align-items-center gap-2 m-2"}>
+                                Home
+                        </Link>
+                    
+                    
+                        <Link to="/dashboard" key={2}  className={"d-flex align-items-center gap-2 m-2"}>
+                                    Dashboard  
+                        </Link>
+                
+                    <div onClick={handleLogOut} className="logout m-2">
+                        Logout
+                    </div>
+
+                </DropdownButton>
+                </div>
+            );
+    
+                    // Function to handle logout
+        async function handleLogOut() {
+            setLoading(true)
+        try {
+            const res = await axios.get(`${baseUrl}/${LOGOUT}`, {
+                headers: {
+                    Authorization: "Bearer " + token,
+                }
+            }, [])
+            nav("/e-commerce", {replace : true});
+            cookie.remove("e-commerce");
+            setLoading(false);
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
 
     return (
-        <div className="position-relative dashboard">
-            <TopBar bar={true}/>
+        <>
+        {loading && <loadingSubmit />}
+        <div className="position-relative dashboard bg-gray-100">
+            
             <div className="content-container" style={{justifyContent: isOpen ? "inherit" : "center"}}>
                 <SideBar />
                 <div
-                    className="content p-3 bg-gray-100"
+                    className="p-3"
                     style={{
                         width:
                             resizeWidth.windowResizeWidth < "768"
@@ -50,9 +105,11 @@ export default function Dashboard() {
                                 (resizeWidth.windowResizeWidth > "768" ? "58px" : "0"),
                     }}
                 >
+                    {showBar}
                     <Outlet /> 
                 </div>
             </div>
         </div>
+        </>
     );
 }
