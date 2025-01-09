@@ -73,7 +73,7 @@ import { Form } from "react-bootstrap";
         <>
         {loading && <LoadingSubmit />}
         <div className="container">
-            <div className="row h-100vh">
+            <div className="row ">
             <Form className="form" onSubmit={handleSubmit}>
                 <div className="custom-form">
                 <div className="google-wraper">

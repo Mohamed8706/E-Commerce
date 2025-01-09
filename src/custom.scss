@@ -2,5 +2,22 @@ $primary: #06c44fcc;
 
 
 
+
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+.container {
+  margin-top: 50px;
+}
+tr > th{
+    background-color: #312c46 !important;
+}
+.table tr:last-child td:first-child {
+  border-bottom-left-radius: 12px !important;
+}
+.table tr:last-child td:last-child {
+  border-bottom-right-radius: 12px !important;
+}
+.table  {
+    border-color: transparent;
+   
+}

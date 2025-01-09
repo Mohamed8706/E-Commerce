@@ -1,9 +1,3 @@
-.dashboard {
-    height: 100vh;
-    overflow-x: auto !important;
-    
-}
-
 .top-bar {
     position: fixed;
     padding: 16px !important;
@@ -14,16 +8,14 @@
     z-index: 999;
 }
 .content-container {
-    position: absolute;
     display: flex;
+    justify-content:center;
     width: 100%;
-    height: 100vh;
 }
+
 .side-bar {
-    position: fixed;
     height: 100vh;
-    top: 0;
-    left: 0;
+    position: fixed;
     background-color: grad;
     display: flex;
     flex-direction: column;

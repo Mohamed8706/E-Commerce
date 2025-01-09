@@ -44,7 +44,8 @@ export default function Dashboard() {
 
     // Top Navigation Bar 
     const showBar = (  
-    <div className="flex p-2 px-3 mb-4 shadow rounded align-center justify-between gap-5 w-full bg-white"> 
+        <div className="flex justify-center w-full">
+    <div className="flex p-2 px-3 mb-4 shadow rounded align-center justify-between gap-5 w-[100%] bg-white"> 
         <FontAwesomeIcon onClick={() => menuOpen.setIsOpen(prev => !prev)} 
             icon={faBars} style={{transform:"translateY(-20%)", fontSize:"1.1rem", cursor:"pointer", color: 'black', alignSelf: 'center'}}/>
 
@@ -64,6 +65,7 @@ export default function Dashboard() {
                     </div>
 
                 </DropdownButton>
+                </div>
                 </div>
             );
     
@@ -88,28 +90,20 @@ export default function Dashboard() {
     return (
         <>
         {loading && <loadingSubmit />}
-        <div className="position-relative dashboard bg-gray-100">
-            
-            <div className="content-container" style={{justifyContent: isOpen ? "inherit" : "center"}}>
+       
                 <SideBar />
+            
+            <div className="content-container h-screen overflow-auto bg-gray-100" >
+                    <div style={{width: !isOpen ? resizeWidth.windowResizeWidth > "768" ? "5%" : "0%" : "16.6%"}}  className="w-1/6"></div>
                 <div
-                    className="p-3"
-                    style={{
-                        width:
-                            resizeWidth.windowResizeWidth < "768"
-                                ? isOpen
-                                    ? "96%"
-                                    : "100%"
-                                : "96%", 
-                                marginLeft: isOpen ? (resizeWidth.windowResizeWidth < "768" ? "8%" : "190px") :
-                                (resizeWidth.windowResizeWidth > "768" ? "58px" : "0"),
-                    }}
+                style={{width: !isOpen ? resizeWidth.windowResizeWidth > "768" ? "95%" : "100%" : "83.3%"}}
+                    className="p-3 "
                 >
                     {showBar}
                     <Outlet /> 
                 </div>
             </div>
-        </div>
+    
         </>
     );
 }

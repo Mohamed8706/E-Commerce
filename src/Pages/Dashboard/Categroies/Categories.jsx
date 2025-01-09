@@ -46,28 +46,15 @@ export default function Categories() {
 ]
 
     return (
-        <div className="bg-white p-2" style={{ overflowX: "auto", 
-            width:
-                resizeWidth.windowResizeWidth < "768"
-                    ? isOpen
-                        ? "80%"
-                        : "100%"
-                    : "100%",
-            marginLeft:
-                resizeWidth.windowResizeWidth < "768"
-                    ? isOpen
-                        ? "10%"
-                        : "0"
-                    : "",
-            
-                    
-}}>
+    <div className="flex justify-center w-full">
+    <div className="bg-white rounded p-3 shadow w-[100%]">
     <div className="d-flex align-items-center justify-content-between">
         <h1>Categories Page</h1>
         <Link className="btn btn-primary" to="/dashboard/category/add" style={{color:"black"}}>Add Category</Link>
         
     </div>
     <TableShow header={header} mutate={mutate} data={cat} delete={Cat} deleteIcon={true} currentUser=""/>
+    </div>
     </div>
     )
 }

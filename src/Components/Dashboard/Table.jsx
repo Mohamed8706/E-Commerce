@@ -48,7 +48,7 @@ export default function TableShow(props) {
             item[item2.value] === '2001' ? 'User' : 
             item[item2.value] === '1996' ? 'Writer' : 
             item[item2.value] === '1999' ? 'Product Manager' :
-            item2.value === "image" ? <img className="object-contain h-full w-full" 
+            item2.value === "image" ? <img className="object-contain h-full w-full max-w-24" 
             src={item[item2.value]} alt="image"/> : 
             item2.value === "images" ? item[item2.value].map((i) => 
             <img src={i.image} alt="in" className="w-32 h-32"/>) : 
@@ -83,7 +83,7 @@ export default function TableShow(props) {
     </tr> 
 )
     return (
-        <div className="rounded-[12px] overflow-hidden ">
+        <div className="rounded-[12px] overflow-x-auto ">
                 <Table striped hover >
                 <thead >
                     <tr >
