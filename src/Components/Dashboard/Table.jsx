@@ -34,12 +34,23 @@ export default function TableShow(props) {
         
 
     }
+
+
+    const paginateData = [];
+
+    if (props.data.length !== 0){
+        for (let i = (props.page - 1) * props.limit ; i <  props.page * props.limit; i++) {
+            paginateData.push(props.data[i])
+            
+        }
+    }
+
     const headerShow = props.header.map((item, key) => <th key={key}>{item.name}</th>)
-    const dataShow = props.data.map((item, ind) => 
+    const dataShow = paginateData.map((item, ind) => 
 
     <tr key={ind}>
         <td key={ind} style={{height:"100px"}}><div className="flex flex-row w-full h-full items-center
-        justify-center"> {ind + 1}</div></td>
+        justify-center"> {item.id}</div></td>
         {props.header.map((item2, ind2) => 
         <td key={ind2} className="h-[100px]">
             <div className="flex flex-row h-full gap-2 items-center justify-center flex-wrap text-xl">
@@ -96,13 +107,12 @@ export default function TableShow(props) {
                 <tbody>
                     
                     {props.data.length === 0 ?
-                        <tr><TableLoading /><TableLoading />{props.header.map((item) => <TableLoading />)}</tr> :
+                        <tr><TableLoading /><TableLoading />{props.header.map((item, key) => <TableLoading key={key}/>)}</tr> :
                         dataShow } 
                     {/* {users.length === 0 && nocat && <tr><td colSpan={12} className="text-center">No Catogries Found</td></tr>} */} 
                 </tbody>
             </Table>
             </div>
- 
         
 
         
