@@ -63,6 +63,9 @@ a:hover {
     color:#06c44fcc;
     background-color: #f2f3fe;
 }
+a {
+    text-decoration: none !important;
+}
 p {
     margin: 0 !important;
 }

@@ -18,7 +18,7 @@ export default function Users() {
     const menuOpen = useContext(Menu);
     const isOpen = menuOpen.isOpen;
     const resizeWidth = useContext(WindowSize);
-
+    
 
 
     // Cookies
@@ -71,7 +71,7 @@ export default function Users() {
                 <h1>Users Page</h1>
                 <Link className="btn btn-primary" to="/dashboard/user/add" style={{ color: "black" }}>Add User</Link>
             </div>
-            <TableShow header={header}
+            <TableShow header={header} 
                 data={users}
                 mutate={mutate}
                 delete={USER}

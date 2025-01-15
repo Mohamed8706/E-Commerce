@@ -8,15 +8,13 @@ import axios from "axios";
 import Cookie  from 'cookie-universal';
 import TableShow from "../../../Components/Dashboard/Table";
 import useSWR from "swr";
-import PaginatedItems from "../../../Components/Dashboard/Pagination/Pagination";
 
 export default function Categories() {
     // States 
     const [cat, setCat] = useState([]);
     const menuOpen = useContext(Menu);
     const isOpen = menuOpen.isOpen;
-    const [page, setPage] = useState(2)
-    const [limit, setLimit] = useState(8);
+
 
 
 
@@ -57,9 +55,8 @@ export default function Categories() {
         <Link className="btn btn-primary" to="/dashboard/category/add" style={{color:"black"}}>Add Category</Link>
         
     </div>
-    <TableShow page={page} limit={limit} header={header} mutate={mutate} 
+    <TableShow header={header} mutate={mutate} 
     data={cat} delete={Cat} deleteIcon={true} currentUser=""/>
-    <PaginatedItems itemsPerPage={5}/>
 
     </div>
 
