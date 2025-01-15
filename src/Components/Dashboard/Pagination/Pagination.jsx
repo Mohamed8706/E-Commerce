@@ -1,10 +1,10 @@
-import { useState } from "react";
 import ReactPaginate from "react-paginate";
 import "./Paginated.css"
 
 
-export default function PaginatedItems({ itemsPerPage, data, setPage }) {
-  const pageCount = Math.ceil(data.length / itemsPerPage)
+export default function PaginatedItems({ data, setPage }) {
+  const pageCount = Math.ceil(data?.total / data?.per_page);
+
 
   return (
     <>
@@ -14,7 +14,7 @@ export default function PaginatedItems({ itemsPerPage, data, setPage }) {
         nextLabel=">>"
         onPageChange={(e) => setPage(++e.selected)}
         pageRangeDisplayed={2}
-        pageCount={pageCount}
+        pageCount={+pageCount}
         previousLabel="<<"
         renderOnZeroPageCount={null}
         activeLinkClassName="active-cl text-white bg-primary"

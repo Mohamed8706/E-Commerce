@@ -1,8 +1,5 @@
-import { useContext } from "react";
 import { useState } from "react";
 import { baseUrl, Product, Products } from "../../../Api/Api";
-import { Menu } from "../../../context/menucontext";
-import { WindowSize } from "../../../context/windowresize";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Cookie from "cookie-universal";
@@ -13,29 +10,33 @@ import useSWR from "swr";
 export default function ProductsPage() {
   // States
   const [products, setProducts] = useState([]);
+  const [page, setPage] = useState(0);
+  const [limit, setLimit] = useState(5);
+  const [loading, setLoading] = useState(false);
 
-  const [noproducts, setNoProducts] = useState(false);
-  const menuOpen = useContext(Menu);
-  const isOpen = menuOpen.isOpen;
-  const resizeWidth = useContext(WindowSize);
   // Cookies
   const cookie = Cookie();
   const token = cookie.get("e-commerce");
 
-  // Get All Categories
-  const getProducts = (Products) => {
-    axios
-      .get(`${baseUrl}/${Products}`, {
-        headers: {
-          Authorization: "Bearer " + token,
-        },
-      })
-      .then((data) => setProducts(data.data))
-      .then(() => setNoProducts(true))
-      .catch((err) => console.log(err));
+  // Fetcher function for SWR
+  const fetchProducts = async (url) => {
+    setLoading(true);
+    const { data } = await axios.get(url, {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    setProducts(data); 
+      setLoading(false);
+    return data;
   };
 
-  const { mutate } = useSWR(`${Products}`, getProducts);
+  // Use SWR with dynamic key
+  const { mutate } = useSWR(
+    `${baseUrl}/${Products}?limit=${limit}&page=${page}`,
+    fetchProducts,
+    {
+      revalidateOnFocus: false, 
+    }
+  );
 
   // Passing Headers
   const header = [
@@ -59,19 +60,7 @@ export default function ProductsPage() {
 
   return (
     <div
-      className="bg-white p-2"
-      style={{
-        overflowX: "auto",
-        width:
-          resizeWidth.windowResizeWidth < "768"
-            ? isOpen
-              ? "80%"
-              : "100%"
-            : "100%",
-        marginLeft:
-          resizeWidth.windowResizeWidth < "768" ? (isOpen ? "10%" : "0") : "",
-      }}
-    >
+      className="bg-white p-2">
       <div className="d-flex align-items-center justify-content-between">
         <h1>Products Page</h1>
         <Link
@@ -89,6 +78,11 @@ export default function ProductsPage() {
         delete={Product}
         deleteIcon={true}
         currentUser=""
+        page={page} 
+        limit={limit} 
+        setPage={setPage} 
+        setLimit={setLimit} 
+        loading={loading}
     
       />
     </div>
