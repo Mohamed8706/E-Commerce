@@ -1,21 +1,23 @@
 import { faEdit, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
-import { Table } from "react-bootstrap";
+import { FormControl, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { baseUrl } from "../../Api/Api";
 import Cookie from "cookie-universal";
 import TableLoading from "./../Loading/tableLoading";
 import PaginatedItems from "./Pagination/Pagination";
+import { useEffect, useState } from "react";
 
 export default function TableShow(props) {
+    const { data, header, limit, page, setLimit, setPage, mutate, loading, title } = props;
     const currentUser = props.currentUser || {
         name: "",
     };
-
-    const { data, header, limit, page, setLimit, setPage, mutate, loading } =
-        props;
-
+    const [search, setSearch] = useState("");
+    const [searchedData, setSearchedData] = useState([]);
+    const filterdData = search.length > 0 ? searchedData.length > 0 ? searchedData : data?.data : data?.data; 
+    console.log(filterdData)
     // Cookies
     const cookie = Cookie();
     const token = cookie.get("e-commerce");
@@ -24,7 +26,7 @@ export default function TableShow(props) {
     async function handleDelete(id) {
         try {
         axios
-            .delete(`${baseUrl}/${props.delete}/${id}`, {
+            .delete(`${baseUrl}/${title}/${id}`, {
             headers: {
                 Authorization: "Bearer " + token,
             },
@@ -35,9 +37,32 @@ export default function TableShow(props) {
         }
     }
 
-    const headerShow = header.map((item, key) => <th key={key}>{item.name}</th>);
+    // Handle search 
+        async function getSearchedData() {
+        try {
+            const res = await axios.post(`${baseUrl}/${title}/search`, {
+                title: search,
+            }, {
+            headers: { Authorization: `Bearer ${token}` }
+            });
+            setSearchedData(res.data);
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
-    const dataShow = data?.data?.map((item) => (
+    useEffect(()=> {
+        const debounce = setTimeout(() => {
+         search.length > 0 && getSearchedData()
+        }, 1200)
+
+        return () => clearTimeout(debounce)
+    }, [search])
+
+    // Mapping over data
+    const headerShow = header.map((item, key) => <th key={key}>{item.name}</th>);
+    const dataShow = Array.isArray(filterdData) ? filterdData.map((item) => (
         <tr key={item.id}>
         <td>
             <div className="flex flex-row w-full h-full items-center justify-center">
@@ -100,10 +125,19 @@ export default function TableShow(props) {
             </div>
         </td>
         </tr>
-    ));
-
+    )) : null ;
+    
     return (
         <div className="rounded-[12px] overflow-x-auto ">
+            <div className="col-3">
+                <FormControl type="search" 
+                className="my-2 shadow-sm" 
+                aria-label="input example" 
+                placeholder="search"
+                onChange={(e) => setSearch(e.target.value)}>
+
+                </FormControl>
+            </div>
         <Table striped hover>
             <thead>
             <tr>

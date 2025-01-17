@@ -75,7 +75,7 @@ export default function ProductsPage() {
         header={header}
         mutate={mutate}
         data={products}
-        delete={Product}
+        title={Product}
         deleteIcon={true}
         currentUser=""
         page={page} 
@@ -83,7 +83,6 @@ export default function ProductsPage() {
         setPage={setPage} 
         setLimit={setLimit} 
         loading={loading}
-    
       />
     </div>
   );

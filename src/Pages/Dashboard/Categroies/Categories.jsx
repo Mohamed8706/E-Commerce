@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { baseUrl, Cat, CAT } from "../../../Api/Api";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Cookie from "cookie-universal";
 import TableShow from "../../../Components/Dashboard/Table";
 import useSWR from "swr";
+import { FormControl } from "react-bootstrap";
 
 export default function Categories() {
     // States
@@ -12,7 +13,6 @@ export default function Categories() {
     const [page, setPage] = useState(0);
     const [limit, setLimit] = useState(5);
     const [loading, setLoading] = useState(false);
-
     // Cookies
     const cookie = Cookie();
     const token = cookie.get("e-commerce");
@@ -24,6 +24,7 @@ export default function Categories() {
             headers: { Authorization: `Bearer ${token}` },
         });
         setCat(data);
+ 
         setLoading(false);
         return data;
     };
@@ -36,6 +37,8 @@ export default function Categories() {
             revalidateOnFocus: false,
         }
     );
+
+
 
     // Passing Headers
     const header = [
@@ -51,8 +54,8 @@ export default function Categories() {
 
     return (
         <div className="flex justify-center flex-col w-full" id="container">
-            <div className="bg-white rounded p-3 shadow w-[100%]">
-                <div className="d-flex align-items-center justify-content-between">
+            <div className="bg-white rounded p-3 shadow w-[100%] ">
+                <div className="d-flex align-items-center justify-content-between flex-wrap">
                     <h1>Categories Page</h1>
                     <Link
                         className="btn btn-primary"
@@ -62,6 +65,7 @@ export default function Categories() {
                         Add Category
                     </Link>
                 </div>
+
                 <TableShow
                     header={header}
                     mutate={mutate}
@@ -69,11 +73,11 @@ export default function Categories() {
                     limit={limit}
                     loading={loading}
                     data={cat}
-                    delete={Cat}
                     deleteIcon={true}
                     currentUser=""
                     setPage={setPage}
                     setLimit={setLimit}
+                    title={Cat}
                 />
             </div>
         </div>

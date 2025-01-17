@@ -84,13 +84,14 @@ export default function Users() {
             header={header}
             data={users}
             mutate={mutate}
-            delete={USER}
+            title={USER}
             currentUser={currentUser}
             page={page}
             limit={limit}
             setPage={setPage}
             setLimit={setLimit}
             loading={loading}
+        
             />
         </div>
         </div>
