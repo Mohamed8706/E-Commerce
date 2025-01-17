@@ -2,10 +2,8 @@ import ReactPaginate from "react-paginate";
 import "./Paginated.css"
 
 
-export default function PaginatedItems({ data, setPage }) {
-  const pageCount = Math.ceil(data?.total / data?.per_page);
-
-
+export default function PaginatedItems({ searchedData, data, setPage, limit }) {
+  const pageCount = searchedData.length > 0 ? Math.ceil(searchedData.length / limit) : Math.ceil(data?.total / data?.per_page);
   return (
     <>
 

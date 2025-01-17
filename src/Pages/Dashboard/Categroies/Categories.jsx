@@ -10,7 +10,7 @@ import { FormControl } from "react-bootstrap";
 export default function Categories() {
     // States
     const [cat, setCat] = useState([]);
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(5);
     const [loading, setLoading] = useState(false);
     // Cookies
@@ -24,7 +24,6 @@ export default function Categories() {
             headers: { Authorization: `Bearer ${token}` },
         });
         setCat(data);
- 
         setLoading(false);
         return data;
     };
@@ -50,6 +49,14 @@ export default function Categories() {
             value: "image",
             name: "Image",
         },
+        {
+            value: "created_at",
+            name: "Created"
+        },
+        {
+            value: "updated_at",
+            name: "Updated"
+        }
     ];
 
     return (
@@ -72,6 +79,7 @@ export default function Categories() {
                     page={page}
                     limit={limit}
                     loading={loading}
+                    setLoading={setLoading}
                     data={cat}
                     deleteIcon={true}
                     currentUser=""

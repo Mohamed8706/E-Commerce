@@ -11,7 +11,7 @@ export default function Users() {
     // States
     const [users, setUsers] = useState([]);
     const [currentUser, setCurrentUser] = useState("");
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
     const [limit, setLimit] = useState(1);
     const [loading, setLoading] = useState(false);
 
@@ -65,6 +65,14 @@ export default function Users() {
         value: "role",
         name: "Role",
         },
+        {
+            value: "created_at",
+            name: "Created"
+        },
+        {
+            value: "updated_at",
+            name: "Updated"
+        }
     ];
 
     return (
@@ -91,6 +99,8 @@ export default function Users() {
             setPage={setPage}
             setLimit={setLimit}
             loading={loading}
+            setLoading={setLoading}
+
         
             />
         </div>

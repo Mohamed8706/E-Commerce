@@ -10,7 +10,7 @@ import useSWR from "swr";
 export default function ProductsPage() {
   // States
   const [products, setProducts] = useState([]);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(5);
   const [loading, setLoading] = useState(false);
 
@@ -25,7 +25,7 @@ export default function ProductsPage() {
       headers: { Authorization: `Bearer ${token}` },
     });
     setProducts(data); 
-      setLoading(false);
+    setLoading(false);
     return data;
   };
 
@@ -56,6 +56,14 @@ export default function ProductsPage() {
       value: "images",
       name: "Images",
     },
+    {
+        value: "created_at",
+        name: "Created"
+    },
+    {
+        value: "updated_at",
+        name: "Updated"
+    }
   ];
 
   return (
@@ -83,6 +91,7 @@ export default function ProductsPage() {
         setPage={setPage} 
         setLimit={setLimit} 
         loading={loading}
+        setLoading={setLoading}
       />
     </div>
   );
