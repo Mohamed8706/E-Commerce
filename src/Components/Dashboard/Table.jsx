@@ -26,14 +26,20 @@ export default function TableShow(props) {
     const currentUser = props.currentUser || {
         name: "",
     };
-    TransformDate("2025-01-13T17:52:52.000000Z");
+
     // Handle Paginate for searched data
     const start = (page - 1) * limit;
     const end = page * limit;
     const [search, setSearch] = useState("");
+    const [date, setDate] = useState("");
     const [searchedData, setSearchedData] = useState([]);
-    const filterdData =
-        search.length > 0 ? searchedData?.slice(start, end) : data?.data || [];
+    const filterdByName = searchedData.slice(start, end).filter(
+        (item) => (date ? TransformDate(item.created_at) == date : item));
+    const filterdByDate = data?.data?.filter(
+        (item) => date ? TransformDate(item.created_at) == date : item
+    );
+    const filterdData = search.length > 0 ? filterdByName : filterdByDate;
+
 
     // Cookies
     const cookie = Cookie();
@@ -84,7 +90,7 @@ export default function TableShow(props) {
 
     // Mapping over data
     const headerShow = header.map((item, key) => <th key={key}>{item.name}</th>);
-    const dataShow = filterdData.map((item) => (
+    const dataShow = filterdData?.map((item) => (
         <tr key={item.id}>
             <td>
                 <div className="flex flex-row w-full h-full items-center justify-center">
@@ -152,61 +158,76 @@ export default function TableShow(props) {
     ));
 
     return (
-        <div className="rounded-[12px] overflow-x-auto ">
-            <div className="col-3">
-                <FormControl
-                    type="search"
-                    className="my-2 shadow-sm"
-                    aria-label="input example"
-                    placeholder="search"
-                    onChange={(e) => setSearch(e.target.value)}
-                ></FormControl>
+        <>
+            <div className="flex flex-row flex-wrap justify-between">
+                <div className="col-3">
+                    <FormControl
+                        type="search"
+                        className="my-2 shadow-sm"
+                        aria-label="input example"
+                        placeholder="search"
+                        onChange={(e) => setSearch(e.target.value)}
+                    ></FormControl>
+                </div>
+
+                <div className="col-3">
+                    <FormControl
+                        type="date"
+                        className="my-2 shadow-sm"
+                        aria-label="input example"
+                        placeholder="search"
+                        onChange={(e) => setDate(e.target.value)}
+                    ></FormControl>
+                </div>
             </div>
-            <Table striped hover>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        {headerShow}
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {loading ? (
+            <div className="rounded-[12px] overflow-x-auto ">
+                <Table striped hover>
+                    <thead className="f-cairo">
                         <tr>
-                            <TableLoading />
-                            <TableLoading />
-                            {header.map((item, key) => (
-                                <TableLoading key={key} />
-                            ))}
+                            <th>ID</th>
+                            {headerShow}
+                            <th>Action</th>
                         </tr>
-                    ) : (
-                        dataShow
-                    )}
-                </tbody>
-            </Table>
-            <div className="flex w-full justify-end gap-3 flex-wrap items-center ">
-                <select
-                    id="number-select"
-                    value={limit}
-                    onChange={(e) => setLimit(+e.target.value)}
-                    className="border w- text-center py-2 rounded-lg"
-                >
-                    <option value="" disabled>
-                        --Choose a number
-                    </option>
-                    <option value={1}>1</option>
-                    <option value={5}>5</option>
-                    <option value={10}>10</option>
-                    <option value={15}>15</option>
-                    <option value={20}>20</option>
-                </select>
-                <PaginatedItems
-                    searchedData={searchedData}
-                    data={data}
-                    limit={limit}
-                    setPage={setPage}
-                />
+                    </thead>
+                    <tbody>
+                        {loading ? (
+                            <tr>
+                                <TableLoading />
+                                <TableLoading />
+                                {header.map((item, key) => (
+                                    <TableLoading key={key} />
+                                ))}
+                            </tr>
+                        ) : (
+                            dataShow
+                        )}
+                    </tbody>
+                </Table>
+                <div className="flex w-full justify-end gap-3 flex-wrap items-center ">
+                    <select
+                        id="number-select"
+                        value={limit}
+                        onChange={(e) => setLimit(+e.target.value)}
+                        className="border w- text-center py-2 rounded-lg"
+                    >
+                        <option value="" disabled>
+                            --Choose a number
+                        </option>
+                        <option value={1}>1</option>
+                        <option value={5}>5</option>
+                        <option value={10}>10</option>
+                        <option value={15}>15</option>
+                        <option value={20}>20</option>
+                    </select>
+                    <PaginatedItems
+                        searchedData={searchedData}
+                        searchLength={search.length}
+                        data={data}
+                        limit={limit}
+                        setPage={setPage}
+                    />
+                </div>
             </div>
-        </div>
+        </>
     );
 }

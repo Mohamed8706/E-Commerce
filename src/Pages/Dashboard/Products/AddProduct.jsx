@@ -185,7 +185,7 @@ async function HandleDeletingImages(id, name) {
 }
 
 // Maping 
-const categories = cat.map((cat, ind) => <option key={ind} value={cat.id}>{cat.title}</option>);
+const categories = cat?.map((cat, ind) => <option key={ind} value={cat.id}>{cat.title}</option>);
 
 const imagesShow = images.map((img, key) => 
     <div key={key} className="w-100 relative border p-2">

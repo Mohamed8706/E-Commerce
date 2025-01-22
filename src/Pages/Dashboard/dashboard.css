@@ -114,3 +114,6 @@ tr th, tr td{
     width: 38px;
     height: 23px;
 }
+tr > th {
+    color: #ffffff !important; 
+}
