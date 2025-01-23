@@ -5,7 +5,7 @@ import "./Paginated.css"
 export default function PaginatedItems({ searchLength, searchedData, data, setPage, limit }) {
   const pageCount = searchLength > 0 ? 
   Math.ceil(searchedData.length / limit): Math.ceil(data?.total / data?.per_page)  ;
-  console.log(pageCount)
+
   return (
     <>
 

@@ -52,7 +52,7 @@ import { Form } from "react-bootstrap";
         setErr("");
         const token = res.data.token;
         const role = res.data.user.role;
-        const go = role === '1995' ? "/dashboard/users/" : (role === '1996' ? "/dashboard/writer/" : "/e-commerce");
+        const go = role === '1995' ? "/dashboard/users/" : (role === '1996' ? "/dashboard/writer/" : "/");
         cookie.set("e-commerce", token); 
 
         nav(`${go}`, { replace: true });

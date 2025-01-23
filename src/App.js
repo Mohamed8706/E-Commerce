@@ -31,7 +31,7 @@ export default function App() {
                 <Route path="/login" element={<LogIn />}></Route>
                 <Route path="/register" element={<Register />}></Route>
                 </Route>
-                <Route path="/E-Commerce" element={<HomePage />}></Route>
+                <Route path="/" element={<HomePage />}></Route>
                 <Route path="/auth/google/callback" element={<GoogleCallBack />}></Route>
                 <Route path="/*" element={<Err404 />}></Route>
                 <Route path="/test" element={<Test />}></Route>

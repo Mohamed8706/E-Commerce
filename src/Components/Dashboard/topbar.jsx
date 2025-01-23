@@ -1,25 +1,25 @@
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Menu } from "../../context/menucontext";
 import { useContext, useEffect, useState } from "react";
-import Cookie  from 'cookie-universal';
+import Cookie from "cookie-universal";
 import axios from "axios";
 import { baseUrl, LOGOUT, USER } from "../../Api/Api";
-import { DropdownButton } from "react-bootstrap";
-import { NavLink, useNavigate } from "react-router-dom";
-import LoadingSubmit from '../Loading/loading';
+import { Container, DropdownButton, FormControl } from "react-bootstrap";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 
-export default function TopBar( {bar} ) {
+
+
+export default function TopBar({ bar }) {
     // States
     const [name, setName] = useState("");
     const [loading, setLoading] = useState(false);
     const [role, setRole] = useState("");
 
-
     // Navigation
-    const nav = useNavigate(); 
-    
+    const nav = useNavigate();
+
     // Cookies and token
     const cookie = Cookie();
     const token = cookie.get("e-commerce");
@@ -29,67 +29,95 @@ export default function TopBar( {bar} ) {
 
     // Get User Details
     useEffect(() => {
-        axios.get(`${baseUrl}/${USER}`, {
-            headers: {
-                Authorization: "Bearer " + token,
-            }
-        })
-        .then(data =>[setName(data.data.name), setRole(data.data.role)])        
-        .catch(err => console.log(err))
-
-    }, [])
-
-        // Function to handle logout
-        async function handleLogOut() {
-            setLoading(true)
-        try {
-            const res = await axios.get(`${baseUrl}/${LOGOUT}`, {
+        axios
+            .get(`${baseUrl}/${USER}`, {
                 headers: {
                     Authorization: "Bearer " + token,
-                }
-            }, [])
-            nav("/e-commerce", {replace : true});
+                },
+            })
+            .then((data) => [setName(data.data.name), setRole(data.data.role)])
+            .catch((err) => console.log(err));
+    }, []);
+
+    // Function to handle logout
+    async function handleLogOut() {
+        setLoading(true);
+        try {
+            const res = await axios.get(
+                `${baseUrl}/${LOGOUT}`,
+                {
+                    headers: {
+                        Authorization: "Bearer " + token,
+                    },
+                },
+                []
+            );
+            nav("/", { replace: true });
             cookie.remove("e-commerce");
             setLoading(false);
-        }
-        catch (err) {
+        } catch (err) {
             console.log(err);
         }
     }
     return (
-        <>
-        {loading && <LoadingSubmit />}
-        <div className="top-bar d-flex align-items-center justify-content-between">
-            <div className="d-flex align-items-center gap-5 w-full"> 
-            <h5 className="font-bold">E-Commerce</h5>
-            <FontAwesomeIcon onClick={() => menuOpen.setIsOpen(prev => !prev)} 
-            icon={faBars} style={{transform:"translateY(-20%)", fontSize:"1.1rem", cursor:"pointer", display: bar ? "block" : "none"}}/>
+        <nav className="py-3">
+            <Container style={{marginTop: "0px"}}>
+            <div className="flex flex-wrap items-center justify-between">
+                <Link to="/" className="col-3 hover:bg-transparent">
+                    <img
+                        className="w-[200px]"
+                        src={require("../../Assets/Elegant_Online_Shopping_Logo_Template-removebg-preview.png")}
+                        alt="logo"
+                    />
+                </Link>
+                
+            <div className="col-12 col-md-6 order-md-2 order-3 relative">
+                <FormControl 
+                style={{borderRadius: "100px"}}
+                type="search"
+                placeholder="Search Product"
+                className="shadow-none form-control py-3"
+                >
+                </FormControl>
+                <div className="absolute flex items-center top-50 translate-y-[-50%] right-1 px-6 
+                bg-primary h-[90%] rounded-full cursor-pointer transition hover:scale-95">
+                <FontAwesomeIcon  fontSize={23} color="white" icon={faSearch} />
+                </div>
             </div>
-            <div>
 
-            {token ? <DropdownButton  id="dropdown-basic-button" title={name} >   
-                    
-                        <NavLink to="/e-commerce"  className={"d-flex align-items-center gap-2 m-2"}>
+            <div className="order-md-3 order-1 col-3 flex justify-end items-center">
+                    {token ? (
+                        <DropdownButton id="dropdown-basic-button" title={name}>
+                            <NavLink to="/" className={"d-flex align-items-center gap-2 m-2"}>
                                 Home
-                        </NavLink>
-                    
-                    
-            {["1999", "1995", "1996"].includes(role) && <NavLink to="/dashboard"  className={"d-flex align-items-center gap-2 m-2"}>
-                        Dashboard  
-                    </NavLink>}
-                
-                    <div onClick={handleLogOut} className="logout m-2">
-                        Logout
-                    </div>
+                            </NavLink>
 
-                </DropdownButton> : <div className="d-flex align-items-center justfiy-content-around gap-2 p-2"> <NavLink to="/login" 
-                className={"btn btn-primary"}>Login</NavLink> 
-                <NavLink to="/register" 
-                className={"btn btn-primary"}>SignUp</NavLink> 
-                
-                </div>}
+                            {["1999", "1995", "1996"].includes(role) && (
+                                <NavLink
+                                    to="/dashboard"
+                                    className={"d-flex align-items-center gap-2 m-2"}
+                                >
+                                    Dashboard
+                                </NavLink>
+                            )}
+
+                            <div onClick={handleLogOut} className="logout m-2">
+                                Logout
+                            </div>
+                        </DropdownButton>
+                    ) : (
+                        <div className="d-flex align-items-center justfiy-content-around gap-2 p-2">
+                            <NavLink to="/login" className={"btn btn-primary"}>
+                                Login
+                            </NavLink>
+                            <NavLink to="/register" className={"btn btn-primary"}>
+                                SignUp
+                            </NavLink>
+                        </div>
+                    )}
+                </div>
             </div>
-        </div>
-        </>
-    )
+            </Container>
+        </nav>
+    );
 }

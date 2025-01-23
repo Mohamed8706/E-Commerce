@@ -1,10 +1,8 @@
-    import { faPlus, faUsers } from "@fortawesome/free-solid-svg-icons";
     import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
     import { useContext } from "react";
     import { NavLink } from "react-router-dom";
     import { Menu } from "../../context/menucontext";
     import { WindowSize } from "../../context/windowresize";
-    import { faPen } from "@fortawesome/free-solid-svg-icons/faPen";
     import Cookie from "cookie-universal";
     import { useEffect, useState } from "react";
     import { baseUrl, USER } from "./../../Api/Api";

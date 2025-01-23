@@ -16,3 +16,6 @@ body {
 .h-100vh {
     height: 100vh !important;
 }
+input[type="search"]::-webkit-search-cancel-button{
+    display: none;
+}

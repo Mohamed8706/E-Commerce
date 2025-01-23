@@ -51,7 +51,7 @@ export default function Dashboard() {
 
             <DropdownButton id="dropdown-basic-button"  title={name} >   
                     
-                        <Link  to="/e-commerce" key={1}  className={"d-flex align-items-center gap-2 m-2"}>
+                        <Link  to="/" key={1}  className={"d-flex align-items-center gap-2 m-2"}>
                                 Home
                         </Link>
                     
@@ -78,7 +78,7 @@ export default function Dashboard() {
                     Authorization: "Bearer " + token,
                 }
             }, [])
-            nav("/e-commerce", {replace : true});
+            nav("/", {replace : true});
             cookie.remove("e-commerce");
             setLoading(false);
         }

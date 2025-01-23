@@ -55,7 +55,7 @@
             setErr("")
             const token = res.data.token
             cookie.set('e-commerce', token)
-            nav("/E-commerce", { replace: true });
+            nav("/", { replace: true });
 
             }
             catch (err) {
