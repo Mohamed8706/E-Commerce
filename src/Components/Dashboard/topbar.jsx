@@ -1,4 +1,3 @@
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Menu } from "../../context/menucontext";
 import { useContext, useEffect, useState } from "react";
@@ -7,11 +6,13 @@ import axios from "axios";
 import { baseUrl, LOGOUT, USER } from "../../Api/Api";
 import { Container, DropdownButton, FormControl } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
+import { faCartShopping, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 
 
 
-export default function TopBar({ bar }) {
+export default function TopBar() {
     // States
     const [name, setName] = useState("");
     const [loading, setLoading] = useState(false);
@@ -62,7 +63,7 @@ export default function TopBar({ bar }) {
     return (
         <nav className="py-3">
             <Container style={{marginTop: "0px"}}>
-            <div className="flex flex-wrap items-center justify-between">
+            <div className="flex flex-wrap items-center gap-md-0 gap-4 justify-between">
                 <Link to="/" className="col-3 hover:bg-transparent">
                     <img
                         className="w-[200px]"
@@ -85,8 +86,8 @@ export default function TopBar({ bar }) {
                 </div>
             </div>
 
-            <div className="order-md-3 order-1 col-3 flex justify-end items-center">
-                    {token ? (
+            <div className="order-md-3 gap-4 order-1 col-3 flex justify-end items-center">
+                    {/* {token ? (
                         <DropdownButton id="dropdown-basic-button" title={name}>
                             <NavLink to="/" className={"d-flex align-items-center gap-2 m-2"}>
                                 Home
@@ -107,14 +108,22 @@ export default function TopBar({ bar }) {
                         </DropdownButton>
                     ) : (
                         <div className="d-flex align-items-center justfiy-content-around gap-2 p-2">
-                            <NavLink to="/login" className={"btn btn-primary"}>
-                                Login
+                            <NavLink to="/login" className={"btn btn-primary bg-transparent"}>
+                                Log in
                             </NavLink>
-                            <NavLink to="/register" className={"btn btn-primary"}>
-                                SignUp
+                            <NavLink to="/register" className={"btn btn-primary "}>
+                                Get Started
                             </NavLink>
                         </div>
-                    )}
+                    )} */}
+                    <Link to={"/"} className="hover:bg-transparent">
+                    <FontAwesomeIcon  
+                    icon={faCartShopping} color="primary" fontSize={25}/>
+                    </Link>
+                    <Link to={"/"} className="hover:bg-transparent">
+                    <FontAwesomeIcon className="bg-primary p-2  rounded-full" 
+                    icon={faUserCircle} color="white" fontSize={27}/>
+                    </Link>
                 </div>
             </div>
             </Container>

@@ -1,24 +1,21 @@
 .btn{
     outline: none !important;
     border: 2px solid transparent !important;
-    padding: 20px 30px;
-    border-radius: 14px;
+    border-radius: 1rem !important;
     cursor: pointer;
-    font-weight: bold !important;
-    transition: 0.1s !important;
+    font-weight: 500 !important;
+    transition: 0.2s !important;
 }
 
 
 .btn-primary {
-    background-color: #06c44fcc !important;
-    color: white !important;
+    background-color: #f5f5f5 !important;
+    color: #21203f !important;
     font-size: 18px !important;
 }
 
 .btn:hover {
-    border: 2px solid #06c44fcc !important;
-    background-color: transparent !important;
-    color: black !important;
+    color: #06c44fcc  !important;
 }
 
 .bn54 {
