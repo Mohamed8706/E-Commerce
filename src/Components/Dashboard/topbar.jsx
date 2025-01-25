@@ -3,11 +3,13 @@ import { Menu } from "../../context/menucontext";
 import { useContext, useEffect, useState } from "react";
 import Cookie from "cookie-universal";
 import axios from "axios";
-import { baseUrl, LOGOUT, USER } from "../../Api/Api";
+import { baseUrl, LOGOUT, USER, CAT } from "../../Api/Api";
 import { Container, DropdownButton, FormControl } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import { faCartShopping, faSearch } from "@fortawesome/free-solid-svg-icons";
+import useSWR from "swr";
+
 
 
 
@@ -17,6 +19,8 @@ export default function TopBar() {
     const [name, setName] = useState("");
     const [loading, setLoading] = useState(false);
     const [role, setRole] = useState("");
+    const [cat, setCat] = useState([]);
+
 
     // Navigation
     const nav = useNavigate();
@@ -60,8 +64,26 @@ export default function TopBar() {
             console.log(err);
         }
     }
+    // Fetch and render Categories
+    const fetchCategories = async (url) => {
+        const { data } = await axios.get(url);
+        setCat(data.slice(-5));
+        return data;
+    };
+
+    
+    const { mutate } = useSWR(
+        `${baseUrl}/${CAT}`,
+        fetchCategories,
+        {
+            revalidateOnFocus: false,
+        }
+    );
+
+    const categoriesShow = cat.map((cat) => <p className="font-medium">{cat.title.substr(0, 12)}...</p>)
+
     return (
-        <nav className="py-3">
+        <nav className="py-3 h-[20%] ">
             <Container style={{marginTop: "0px"}}>
             <div className="flex flex-wrap items-center gap-md-0 gap-4 justify-between">
                 <Link to="/" className="col-3 hover:bg-transparent">
@@ -81,7 +103,7 @@ export default function TopBar() {
                 >
                 </FormControl>
                 <div className="absolute flex items-center top-50 translate-y-[-50%] right-1 px-6 
-                bg-primary h-[90%] rounded-full cursor-pointer transition hover:scale-95">
+                bg-primary  h-[90%] rounded-full cursor-pointer transition hover:scale-95">
                 <FontAwesomeIcon  fontSize={23} color="white" icon={faSearch} />
                 </div>
             </div>
@@ -124,6 +146,11 @@ export default function TopBar() {
                     <FontAwesomeIcon className="bg-primary p-2  rounded-full" 
                     icon={faUserCircle} color="white" fontSize={27}/>
                     </Link>
+                </div>
+            </div>
+            <div className="mt-3">
+                <div className="flex flex-row items-center justify-between gap-3 flex-wrap">
+                    {categoriesShow}
                 </div>
             </div>
             </Container>

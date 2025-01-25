@@ -1,8 +1,10 @@
 .hand {
-    height: 100vh;
+    height: 80%;
     background-image: url('../../Assets/wave.svg');
     background-position: center;
     background-size: cover;
+    overflow: hidden;
+    
 }
 
 
@@ -53,8 +55,8 @@
   
   
 .pag{
-    width: 600px;
-    height: 600px;
+    width: 550px;
+    height: 550px;
     display: none;
 }
 @media (min-width: 768px) {
@@ -65,3 +67,10 @@
 .animate__animated.animate__bounceIn{
     --animate-duration: 2s;
   }
+  .bt:hover{
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+  }
+.bt:not(:hover){
+  transition-duration: 0.3s;
+}

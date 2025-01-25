@@ -1,11 +1,11 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { baseUrl, Cat, CAT } from "../../../Api/Api";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Cookie from "cookie-universal";
 import TableShow from "../../../Components/Dashboard/Table";
 import useSWR from "swr";
-import { FormControl } from "react-bootstrap";
+
 
 export default function Categories() {
     // States
@@ -17,7 +17,7 @@ export default function Categories() {
     const cookie = Cookie();
     const token = cookie.get("e-commerce");
 
-    // Fetcher function for SWR
+    
     const fetchCategories = async (url) => {
         setLoading(true);
         const { data } = await axios.get(url, {
@@ -28,7 +28,7 @@ export default function Categories() {
         return data;
     };
 
-    // Use SWR with dynamic key
+    
     const { mutate } = useSWR(
         `${baseUrl}/${CAT}?limit=${limit}&page=${page}`,
         fetchCategories,
