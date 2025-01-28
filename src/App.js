@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
-import HomePage from "./Pages/Website/homePage";
+import HomePage from "./Pages/Website/homepage/homePage";
 import LogIn from "./Pages/Auth/AuthOperations/login";
 import Register from "./Pages/Auth/AuthOperations/register";
 import GoogleCallBack from './Pages/Auth/AuthOperations/GoogleCallBack';
@@ -14,10 +14,11 @@ import RequireBack from "./Pages/Auth/Protecting/requireBack";
 import Categories from "./Pages/Dashboard/Categroies/Categories";
 import AddCategory from "./Pages/Dashboard/Categroies/AddCategory";
 import CategoryUpdate from "./Pages/Dashboard/Categroies/CategoryUpdate";
-import Test from "./Pages/Website/test";
+import Test from "./Pages/Website/website";
 import ProductsPage from "./Pages/Dashboard/Products/Products";
 import AddProduct from "./Pages/Dashboard/Products/AddProduct";
 import ProductUpdate from "./Pages/Dashboard/Products/ProductUpate";
+import Website from "./Pages/Website/website";
 
 
 
@@ -27,33 +28,37 @@ export default function App() {
         <div className="app">
             {/* Public Routes */}
             <Routes>
-                <Route element={<RequireBack />}>
-                <Route path="/login" element={<LogIn />}></Route>
-                <Route path="/register" element={<Register />}></Route>
+                <Route element={<Website />}>
+                    <Route path="/" element={<HomePage />}></Route>
                 </Route>
-                <Route path="/" element={<HomePage />}></Route>
+
+                <Route element={<RequireBack />}>
+                    <Route path="/login" element={<LogIn />}></Route>
+                    <Route path="/register" element={<Register />}></Route>
+                </Route>
+
                 <Route path="/auth/google/callback" element={<GoogleCallBack />}></Route>
                 <Route path="/*" element={<Err404 />}></Route>
-                <Route path="/test" element={<Test />}></Route>
+                
                 {/* Protected Routes */}
-                <Route element={<RequireAuth allowedRole={["1995", "1996", "1999"]}/>}>
-                <Route path="/dashboard/" element={<Dashboard />}>
-                <Route element={<RequireAuth allowedRole={["1995"]} />}>
-                        <Route path="users" element={<Users />} />
-                        <Route path="users/:id" element={<UserUpdate />} />
-                        <Route path="user/add" element={<AddUser />} />
-                </Route>
-                <Route element={<RequireAuth allowedRole={["1999","1995"]} />}>
-                        {/* Categories */}
-                        <Route path="categories" element={<Categories />} />
-                        <Route path="category/add" element={<AddCategory />} />
-                        <Route path="categories/:id" element={<CategoryUpdate />} />
-                        {/* Products */}
-                        <Route path="products" element={<ProductsPage />} />
-                        <Route path="product/add" element={<AddProduct />} />
-                        <Route path="products/:id" element={<ProductUpdate />} />
-                </Route>
-                </Route>
+                <Route element={<RequireAuth allowedRole={["1995", "1996", "1999"]} />}>
+                    <Route path="/dashboard/" element={<Dashboard />}>
+                        <Route element={<RequireAuth allowedRole={["1995"]} />}>
+                            <Route path="users" element={<Users />} />
+                            <Route path="users/:id" element={<UserUpdate />} />
+                            <Route path="user/add" element={<AddUser />} />
+                        </Route>
+                        <Route element={<RequireAuth allowedRole={["1999", "1995"]} />}>
+                            {/* Categories */}
+                            <Route path="categories" element={<Categories />} />
+                            <Route path="category/add" element={<AddCategory />} />
+                            <Route path="categories/:id" element={<CategoryUpdate />} />
+                            {/* Products */}
+                            <Route path="products" element={<ProductsPage />} />
+                            <Route path="product/add" element={<AddProduct />} />
+                            <Route path="products/:id" element={<ProductUpdate />} />
+                        </Route>
+                    </Route>
                 </Route>
             </Routes>
         </div>

@@ -1,32 +1,9 @@
-import { Container } from "react-bootstrap";
-import TopBar from "../../Components/Dashboard/topbar";
-import "./home.css";
-import { ReactComponent as MyICon } from "../../Assets/Ecommerce web page-amico.svg";
-import { Link } from "react-router-dom";
-
-
-export default function HomePage() {
-   
+export default function NavButton() {
     return (
-        <div className="h-screen">
-            <TopBar />
-            <div className="hand flex justify-between items-center flex-wrap">
-                <Container className="flex flex-row justify-between gap-7">
-                    <div className="flex align-items-center align-items-md-start gap-2 flex-col justify-center">
-                        <h1 className="font-bold">Shampoo Nice</h1>
-                        <h5>Another nice thing which is used by someone I don't Know.</h5>
-                        <Link to={"/"} className="bt p-3 rounded-full  text-black 
-                        bg-light font-bold">
-                            Shop Now
-                        </Link>
-                    </div>
-
-                    <MyICon className="pag animate__animated animate__bounceIn" />
-
-                    <div class="button-container">
-                        <button class="button">
+                <div className="button-container">
+                        <button className="button">
                             <svg
-                                class="icon"
+                                className="icon"
                                 stroke="currentColor"
                                 fill="currentColor"
                                 stroke-width="0"
@@ -38,9 +15,9 @@ export default function HomePage() {
                                 <path d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 0 0-44.4 0L77.5 505a63.9 63.9 0 0 0-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0 0 18.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"></path>
                             </svg>
                         </button>
-                        <button class="button">
+                        <button className="button">
                             <svg
-                                class="icon"
+                                className="icon"
                                 stroke="currentColor"
                                 fill="none"
                                 stroke-width="2"
@@ -57,9 +34,9 @@ export default function HomePage() {
                                 ></path>
                             </svg>
                         </button>
-                        <button class="button">
+                        <button className="button">
                             <svg
-                                class="icon"
+                                className="icon"
                                 stroke="currentColor"
                                 fill="currentColor"
                                 stroke-width="0"
@@ -72,9 +49,9 @@ export default function HomePage() {
                             </svg>
                         </button>
 
-                        <button class="button">
+                        <button className="button">
                             <svg
-                                class="icon"
+                                className="icon"
                                 stroke="currentColor"
                                 fill="none"
                                 stroke-width="2"
@@ -91,8 +68,4 @@ export default function HomePage() {
                             </svg>
                         </button>
                     </div>
-                </Container>
-            </div>
-        </div>
-    );
-}
+            )}

@@ -15,7 +15,7 @@ export default function Err404() {
                 Looks like you're lost
                 </h3>
                 <p>the page you are looking for not avaible!</p>
-                <NavLink to="e-commerce" className="link_404">Go to HomePage</NavLink>
+                <NavLink to="/" className="link_404">Go to HomePage</NavLink>
             </div>
                 </div>
                 </div>

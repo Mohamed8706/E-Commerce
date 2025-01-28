@@ -18,4 +18,5 @@ body {
 }
 input[type="search"]::-webkit-search-cancel-button{
     display: none;
+    padding-right: 10px;
 }
