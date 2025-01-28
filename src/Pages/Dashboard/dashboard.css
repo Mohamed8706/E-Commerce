@@ -59,7 +59,7 @@
 
 }
 
-a:hover {
+.dashboard a:hover {
     color:#06c44fcc;
     background-color: #f2f3fe;
 }

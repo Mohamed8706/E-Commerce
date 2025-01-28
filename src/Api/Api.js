@@ -22,3 +22,4 @@ export const Cat = 'category';
 
 export const Products = 'products';
 export const Product = 'product';
+export const LatestSale = "latest-sale"

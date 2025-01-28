@@ -1,6 +1,8 @@
 import "./home.css";
-import LandingSection from "../../../Components/Website/homePage/LandingSection";
-import ProductsSection from "../../../Components/Website/homePage/ProductsSection";
+import LandingSection from './../../../Components/Website/Landing/LandingSection';
+import ProductSection from "../../../Components/Website/Products/ProductsSection";
+import { LatestSale } from "../../../Api/Api";
+
 
 
 export default function HomePage() {
@@ -8,7 +10,7 @@ export default function HomePage() {
     return (
         <>
             <LandingSection />
-            <ProductsSection />
+            <ProductSection title="Deal Of The Day" data={LatestSale}/>
         </>
     );
 }

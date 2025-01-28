@@ -10,9 +10,9 @@
 
 .button-container {
     display: flex;
-    background-color: #64666966;
+    background-color: rgba(100, 102, 104, 0.7);
     position: fixed;
-    bottom: 30px;
+    bottom: 5px;
     right: 50%;
     transform: translateX(50%);
     width: 300px;
@@ -25,7 +25,7 @@
   }
   .button-container:hover {
     width: 350px;
-    background-color: rgba(173, 174, 175,0.5);
+    background-color: rgba(22, 22, 22, 0.6);
     transition: all 0.5s;
   }
   
@@ -39,13 +39,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: #ffffff;
     transition: all ease-in-out 0.3s;
     cursor: pointer;
   }
   
   .button:hover {
     transform: translateY(-3px);
+    
   }
   
   .icon {
@@ -92,4 +93,22 @@
 }
 input[type="search"].cat-search{
     padding-left: 70px;
+}
+
+/* Webkit browsers (Chrome, Safari, newer Edge) */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Internet Explorer */
+input[type="number"] {
+  -ms-appearance: none;
+  appearance: none;
 }

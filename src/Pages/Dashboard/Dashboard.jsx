@@ -92,7 +92,7 @@ export default function Dashboard() {
        
                 <SideBar />
             
-            <div className="content-container h-screen overflow-auto bg-gray-100" >
+            <div className="content-container dashboard h-screen overflow-auto bg-gray-100" >
                     <div style={{width: !isOpen ? resizeWidth.windowResizeWidth > "768" ? "5%" : "0%" : "16.6%"}}  className="w-1/6"></div>
                 <div
                 style={{width: !isOpen ? resizeWidth.windowResizeWidth > "768" ? "95%" : "100%" : "83.3%"}}

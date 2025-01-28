@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import NavButton from "../../Components/Website/homePage/NavButton";
-import TopBar from "../../Components/Website/topbar";
+import TopBar from "../../Components/Website/Navigation/topbar";
+import NavButton from "../../Components/Website/Navigation/NavButton";
 
 export default function Website() {
     return (
         <div className="h-screen w-full">
-            <TopBar />
+            {/* <TopBar /> */}
             <Outlet />
             <NavButton />
         </div>
