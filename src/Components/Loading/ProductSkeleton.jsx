@@ -1,4 +1,4 @@
-import "./product.css"
+import "../../Components/Website/Products/product.css"
 export default function ProductSkeleton() {
 
     return (

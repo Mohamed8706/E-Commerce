@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -8,8 +8,8 @@ import ProductCard from "./ProductCard";
 import axios from "axios";
 import useSWR from "swr";
 import { baseUrl } from "../../../Api/Api";
-import ProductSkeleton from "./ProductSkeleton";
-
+import ProductSkeleton from "../../Loading/ProductSkeleton";
+import "./product.css"
 
 export default function ProductSection(props) {
   const {title, data} = props;
@@ -19,7 +19,8 @@ export default function ProductSection(props) {
   });
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  
+  const uniqeId = `swiper-${Math.random().toString(36).substr(2,9)}`;
+console.log(swiperInstance)
 
   // Fetching data
   const fetchProducts = async (url) => {
@@ -34,7 +35,6 @@ export default function ProductSection(props) {
     {
       revalidateOnFocus: false, 
     })
-  
 
 
 
@@ -47,18 +47,14 @@ export default function ProductSection(props) {
           {title}
         </h2>
         <div className="flex gap-2 mb-4">
-          <button  style={{color: swiperInstance.beginning ? "#ccc" : "#222222", 
-          backgroundColor: swiperInstance.beginning ? "#eaeaea" : "#F1F1F1"}}
-            className={`prev flex justify-center items-center transition-all duration-300 
-                  w-[38px] h-[38px] rounded-[10px] hover:!bg-${!swiperInstance.beginning && '[#06c44fcc]'} `}
-          >
+          <button disabled={swiperInstance.beginning}   
+            className={`prev-${uniqeId} flex justify-center items-center transition-all duration-300 
+                  w-[38px] h-[38px] rounded-[10px] bg-[#F1F1F1] text-[#222222]`}>
             <ChevronLeft />
           </button>
-          <button   style={{color: swiperInstance.end ? "#ccc" : "#222222", 
-          backgroundColor: swiperInstance.end ? "#eaeaea" : "#F1F1F1"}}
-            className={`next flex justify-center items-center  transition-all duration-300 
-          w-[38px] h-[38px] rounded-[10px] hover:!bg-${!swiperInstance.end && '[#06c44fcc]'}`}
-          >
+          <button disabled={swiperInstance.end} 
+          className={`next-${uniqeId} flex justify-center items-center  transition-all duration-300 
+          w-[38px] h-[38px] rounded-[10px] bg-[#F1F1F1] text-[#222222]`}>
             <ChevronRight />
           </button>
         </div>
@@ -82,13 +78,14 @@ export default function ProductSection(props) {
           }
 
         }}
-        navigation={{ prevEl: ".prev", nextEl: ".next" }}
+        navigation={{ prevEl: `.prev-${uniqeId}`, nextEl: `.next-${uniqeId}` }}
         modules={[Navigation]}
-        className="product-swipe p-3"
+        className="product-swipe p-3 align-stretch"
         onSlideChange={(swiper) => setSwiperInstance({beginning : swiper.isBeginning, end: swiper.isEnd})}
+      
         
       >
-        {loading ? [1,2,3,4,5,6].map((product, ind) => (
+        {loading ? Array.from({ length: 5 }).map((product, ind) => (
           <SwiperSlide key={ind}>
             <ProductSkeleton  />
           </SwiperSlide>

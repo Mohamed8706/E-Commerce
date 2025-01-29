@@ -58,6 +58,7 @@
     width: 500px;
     height: 500px;
     display: none;
+    
 }
 @media (min-width: 768px) {
     .pag{
@@ -67,10 +68,10 @@
 .animate__animated.animate__bounceIn{
     --animate-duration: 2s;
   }
-  .bt:hover{
-    transform: scale(1.1);
-    transition: all 0.3s ease-in-out;
-  }
+.bt:hover{
+  transform: scale(1.1);
+  transition: all 0.3s ease-in-out;
+}
 .bt:not(:hover){
   transition-duration: 0.3s;
 }
@@ -111,4 +112,8 @@ input[type="number"] {
 input[type="number"] {
   -ms-appearance: none;
   appearance: none;
+}
+
+.nav-top .dropdown button {
+  background-color: transparent !important;
 }

@@ -16,7 +16,7 @@ export default function LandingSection() {
                         </Link>
                     </div>
 
-                    <MyICon className="pag animate__animated animate__bounceIn" />
+                    <MyICon className="pag " />
 
                 
                 </Container>

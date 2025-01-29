@@ -82,7 +82,7 @@ export default function TopBar() {
     return (
         <>
         {loading && <LoadingSubmit />}
-        <nav className="py-2 px-3 md:fixed top-0 right-0 w-full z-[999] bg-white">
+        <nav className="py-2 px-3 top-0 right-0 w-full  bg-white">
             <Container style={{marginTop: "0px"}}>
             <div className="flex flex-wrap items-center gap-md-0 gap-4 justify-between">
                 <Link to="/" className="col-3 hover:bg-transparent">
@@ -121,44 +121,43 @@ export default function TopBar() {
         
             </div>
 
-            <div className="order-md-3 gap-4 order-1 col-3 flex justify-end items-center">
-                    {/* {token ? (
-                        <DropdownButton id="dropdown-basic-button" title={name}>
-                            <NavLink to="/" className={"d-flex align-items-center gap-2 m-2"}>
-                                Home
+            <div className="nav-top order-md-3 gap-4 order-1 col-3 flex justify-end items-center">
+                <Link to={"/"} className="hover:bg-transparent">
+                <FontAwesomeIcon  
+                icon={faCartShopping} color="primary" fontSize={25}/>
+                </Link>
+                
+                <DropdownButton id="dropdown-basic-button"  title={
+                <FontAwesomeIcon className="bg-primary p-2  rounded-full" 
+                icon={faUserCircle} color="white" fontSize={27}/>}>
+                { token ? ( 
+                    <>
+                    <NavLink to="/" className={"d-flex align-items-center gap-2 m-2"}>
+                            Home
+                        </NavLink>
+                        {["1999", "1995", "1996"].includes(role) && (
+                            <NavLink
+                                to="/dashboard"
+                                className={"d-flex align-items-center gap-2 m-2"}
+                            >
+                                Dashboard
                             </NavLink>
-
-                            {["1999", "1995", "1996"].includes(role) && (
-                                <NavLink
-                                    to="/dashboard"
-                                    className={"d-flex align-items-center gap-2 m-2"}
-                                >
-                                    Dashboard
-                                </NavLink>
-                            )}
-
-                            <div onClick={handleLogOut} className="logout m-2">
-                                Logout
-                            </div>
-                        </DropdownButton>
-                    ) : (
-                        <div className="d-flex align-items-center justfiy-content-around gap-2 p-2">
-                            <NavLink to="/login" className={"btn btn-primary bg-transparent"}>
-                                Log in
-                            </NavLink>
-                            <NavLink to="/register" className={"btn btn-primary "}>
-                                Get Started
-                            </NavLink>
+                        )}
+                        <div onClick={handleLogOut} className="logout m-2">
+                            Logout
                         </div>
-                    )} */}
-                    <Link to={"/"} className="hover:bg-transparent">
-                    <FontAwesomeIcon  
-                    icon={faCartShopping} color="primary" fontSize={25}/>
-                    </Link>
-                    <Link to={"/"} className="hover:bg-transparent">
-                    <FontAwesomeIcon className="bg-primary p-2  rounded-full" 
-                    icon={faUserCircle} color="white" fontSize={27}/>
-                    </Link>
+                        </>
+                        ) : (
+                        <>
+                        <NavLink to="/login" className={"d-flex align-items-center gap-2 m-2"}>
+                            Log in
+                        </NavLink>
+                        <NavLink to="/register" className={"d-flex align-items-center gap-2 m-2 "}>
+                            Get Started
+                        </NavLink> 
+                        </>
+                        )}
+                        </DropdownButton>
                 </div>
             </div>
 

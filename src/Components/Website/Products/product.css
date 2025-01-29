@@ -20,3 +20,10 @@
   padding-block: 0.8rem;
   margin: 12px;
 }
+button[class*="prev-"]:not(:disabled):hover, button[class*="next-"]:not(:disabled):hover {
+  background-color: #36ce70 !important;
+}
+button[class*="prev-"]:disabled, button[class*="next-"]:disabled{
+  background-color: #eaeaea;
+  color: #ccc;
+}

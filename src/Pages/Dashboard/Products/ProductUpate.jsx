@@ -287,7 +287,7 @@ const imagesShow = images.map((img, key) =>
             <Form.Control
                 type="text"
                 placeholder="Discount..."
-                name="Discount"
+                name="discount"
                 value={form.discount}
                 onChange={handleChange}
                 required

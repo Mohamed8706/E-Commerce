@@ -57,6 +57,10 @@ export default function ProductsPage() {
       name: "Images",
     },
     {
+      value: "rating",
+      name: "Rating"
+    },
+    {
         value: "created_at",
         name: "Created"
     },
