@@ -40,7 +40,7 @@ console.log(swiperInstance)
 
 
   return (
-    <div className="h-full mx-auto px-6 py-20">
+    <section className="h-full mx-auto px-6 py-20">
       {/* Header and slide buttons */}
       <div className="flex justify-between">
         <h2 className="text-2xl f-cairo font-bold mb-4 ">
@@ -97,6 +97,6 @@ console.log(swiperInstance)
         ))}
         
       </Swiper>
-    </div>
+    </section>
   );
 }
