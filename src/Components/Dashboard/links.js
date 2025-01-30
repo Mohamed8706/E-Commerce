@@ -14,7 +14,7 @@ export const links = [
         role: "1995"
     },
     {
-        name: "Categoies",
+        name: "Categories",
         path: "/dashboard/categories",
         icon: faCartShopping,
         role: ['1995', '1999']

@@ -1,10 +1,10 @@
-import React, { Children, useId, useState } from "react";
+import React, { useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import ProductSkeleton from "../Components/Loading/ProductSkeleton";
+
 
 export default function MainSwiper(props) {
     const {title, slides} = props;
