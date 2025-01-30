@@ -31,7 +31,7 @@ export default function OurFeatures() {
                         {features.map((item, ind) => 
                         <div className="flex flex-col h-72 text-center rounded-2xl w-full 
                         md:w-[calc(50%-36px)] lg:w-[calc(33.3%-36px)] p-4
-                         bg-[#002c3e] items-center justify-center text-white gap-2">
+                         bg-[#36ce70] items-center justify-center text-white gap-2">
                             {item.icon}
                             <h4>{item.title}</h4>
                             <h5>{item.description}</h5>

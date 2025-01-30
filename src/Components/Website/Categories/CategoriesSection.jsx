@@ -1,19 +1,18 @@
 import React, { useId, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import { SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import ProductCard from "./ProductCard";
+import ProductSkeleton from "../../Loading/ProductSkeleton";
+import MainSwiper from "../../../helpers/MainSwiper";
+import ProductCard from "../Products/ProductCard";
 import axios from "axios";
 import useSWR from "swr";
 import { baseUrl } from "../../../Api/Api";
-import ProductSkeleton from "../../Loading/ProductSkeleton";
-import "./product.css"
-import MainSwiper from "../../../helpers/MainSwiper";
 
-export default function ProductSection(props) {
- const {title, endPoint} = props;
+
+
+export default function Categoriesection(props) {
+  const {title, endPoint} = props;
   const [fetchedData, setFetchedData] = useState([]);
     const [loading, setLoading] = useState(false);
   // Fetching data
@@ -31,9 +30,9 @@ export default function ProductSection(props) {
         })
   console.log(fetchedData)
 
-    const slides = loading ?
-    Array.from({length: 5}).map((item) => <ProductSkeleton />) :
-     fetchedData.map((item) => <ProductCard data={item}/>)
+    const slides = 
+    Array.from({length: 6}).map((item) => <ProductSkeleton />) 
+    //  fetchedData.map((item) => <ProductCard data={item}/>)
 
   return (
     <div className="h-full">

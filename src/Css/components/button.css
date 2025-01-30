@@ -13,7 +13,19 @@
     color: #21203f !important;
     font-size: 18px !important;
 }
-
+.btn-second{
+    background-color: #06c44fcc;
+    color: white;
+    padding: 13px;
+    transition: 0.3s;
+    border: 1px solid #06c44fcc;
+    font-weight: bold;
+}
+.btn-second:hover{
+    color: #06c44fcc;
+    background-color: #ffffff;
+    
+}
 .btn:hover {
     color: #06c44fcc  !important;
 }
@@ -96,8 +108,4 @@
         transform: translate3d(0, 0, 0) translateZ(0);
     }
 }
-
-
-
-
 
