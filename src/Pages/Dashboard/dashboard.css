@@ -59,7 +59,7 @@
 
 }
 
-a:hover {
+a:hover:not(.navigation-link){
     color:#06c44fcc;
     background-color: #f2f3fe;
 }

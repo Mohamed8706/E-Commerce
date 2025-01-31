@@ -58,7 +58,7 @@ const token = cookie.get("e-commerce")
 
 
     
-    // Get user details to fill up inputs
+    // Get Product details to fill up inputs
     useEffect(() => {
         setLoading(true)
         axios.get(`${baseUrl}/${Product}/${id}`, {

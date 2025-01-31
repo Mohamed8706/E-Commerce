@@ -19,6 +19,7 @@ import ProductsPage from "./Pages/Dashboard/Products/Products";
 import AddProduct from "./Pages/Dashboard/Products/AddProduct";
 import ProductUpdate from "./Pages/Dashboard/Products/ProductUpate";
 import Website from "./Pages/Website/website";
+import SingleProduct from "./Pages/Website/singleProduct/SingleProductPage";
 
 
 
@@ -30,6 +31,7 @@ export default function App() {
             <Routes>
                 <Route element={<Website />}>
                     <Route path="/" element={<HomePage />}></Route>
+                    <Route path="/product/:id" element={<SingleProduct />}></Route>
                 </Route>
 
                 <Route element={<RequireBack />}>

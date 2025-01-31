@@ -13,7 +13,7 @@ import "./product.css"
 import MainSwiper from "../../../helpers/MainSwiper";
 
 export default function ProductSection(props) {
- const {title, endPoint} = props;
+  const {title, endPoint} = props;
   const [fetchedData, setFetchedData] = useState([]);
     const [loading, setLoading] = useState(false);
   // Fetching data
@@ -29,7 +29,7 @@ export default function ProductSection(props) {
         {
         revalidateOnFocus: false, 
         })
-  console.log(fetchedData)
+  
 
     const slides = loading ?
     Array.from({length: 5}).map((item) => <ProductSkeleton />) :

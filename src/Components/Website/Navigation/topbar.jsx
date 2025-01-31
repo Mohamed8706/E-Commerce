@@ -28,6 +28,7 @@ export default function TopBar() {
     const token = cookie.get("e-commerce");
 
     // Get User Details
+    
     useEffect(() => {
         axios
             .get(`${baseUrl}/${USER}`, {

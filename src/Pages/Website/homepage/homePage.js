@@ -13,12 +13,12 @@ export default function HomePage() {
     return (
         <>
             <LandingSection />
-            <ProductSection title="Deals Of The Day" endPoint={LatestSale} />
+            <Categoriesection title="Categories" endPoint={CAT} />
             <OurFeatures />
+            <ProductSection title="Deals Of The Day" endPoint={LatestSale} />
             <ProductSection title="Latest Products" endPoint={LatestProducts}  />
             <Subscribe />
             <ProductSection title="Top Rated Products" endPoint={TopProducts} />
-            <Categoriesection title="Categories" endPoint={CAT} />
         </>
     );
 }

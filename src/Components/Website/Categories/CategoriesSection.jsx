@@ -1,37 +1,38 @@
-import React, { useId, useState } from "react";
+import React, { useState } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
-import ProductSkeleton from "../../Loading/ProductSkeleton";
 import MainSwiper from "../../../helpers/MainSwiper";
-import ProductCard from "../Products/ProductCard";
 import axios from "axios";
 import useSWR from "swr";
 import { baseUrl } from "../../../Api/Api";
 import CategoryCard from "./CategoryCard";
+import CategorySkeleton from "../../Loading/CategorySkeleton";
 
 
 
 export default function Categoriesection(props) {
   const {title, endPoint} = props;
   const [fetchedData, setFetchedData] = useState([]);
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   // Fetching data
     const fetchData = async (url) => {
         setLoading(true)
-        const {data} = await axios.get((url));
-        setFetchedData(data);
+        const { data } = await axios.get((url));
+        setFetchedData(data.data);
         setLoading(false)
+        
 
     }
 
-    const { mutate } = useSWR(`${baseUrl}/${endPoint}`, fetchData, 
+    const { mutate } = useSWR(`${baseUrl}/${endPoint}?limit=8&page=6`, fetchData, 
         {
         revalidateOnFocus: false, 
         })
   console.log(fetchedData)
 
     const slides = loading ?
-    Array.from({length: 6}).map((item) => <ProductSkeleton />) :
+    Array.from({length: 6}).map((item) => <CategorySkeleton />) :
       fetchedData.map((item) => <CategoryCard data={item}/>)
 
   return (
