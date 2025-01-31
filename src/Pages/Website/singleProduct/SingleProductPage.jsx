@@ -10,6 +10,7 @@ import { LucideStar, LucideStarHalf, Minus, Plus, Star, StarHalf, StarHalfIcon, 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faStarHalf, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
+import RatingStars from "../../../helpers/RatingStars";
 
 export default function SingleProduct() {
     // States
@@ -52,56 +53,54 @@ export default function SingleProduct() {
     const { mutate } = useSWR(`${baseUrl}/${Product}/${id}`, fetchProduct, {
         revalidateOnFocus: false })
     // Gallery Images
-    const images = img.map((img)=> {
+    const images = Array.from({length: 2}).map((img)=> {
             return {
                 original: img.image,
                 thumbnail: img.image
             }
         })
     // Rating Stars
-    const oddRating = Math.floor(Math.min(product.rating , 5))
-    const emptyStars = Array.from({length: 5 - oddRating}).map((empty)=> {
-        return <Star  stroke="#ffc43f" className="w-6 h-6" />
-    })
-    const fullStars = Array.from({length: oddRating}).map((star, ind) => {
-            return <Star key={ind} fill="#ffc43f" stroke="#ffc43f" className="w-6 h-6" />
-    })
-    const halfStars = Array.from({length: Math.ceil(product.rating % 2)}).map((halfStar) => {
-        return product.rating % 2 > 0.6 ? <FontAwesomeIcon icon={faStarHalfStroke} /> : 
-        <Star  stroke="#ffc43f" className="w-6 h-6" />
-    })
-    const RatingStars = product.rating % 2 == 0 ?  fullStars.concat(emptyStars) : fullStars.concat(halfStars);
-    console.log(emptyStars, fullStars, halfStars, oddRating)
+    const ratingStars = RatingStars(product.rating)
+    const totalPrice = qty * product.price;
     return (
-        <div className="m-10">
-            <div className="w-full h-full flex gap-y-10 flex-wrap">
-                <div className="w-full md:w-2/5  h-full rounded-lg overflow-hidden">
+        <div className="pb-16 px-3">
+            <div className="w-full flex gap-10 lg:gap-32 flex-wrap">
+                <div className="w-full md:w-2/5 rounded-lg overflow-hidden">
                 <ReactImageGallery lazyLoad={true} showFullscreenButton={false} 
-                items={images} showBullets={true} showThumbnails={false} showPlayButton={false}/>
+                items={images} showBullets={true} showThumbnails={false} showPlayButton={false}
+                renderItem={(item) => (
+                    <div className="h-[400px] w-full overflow-hidden">
+                      <img
+                        src={item.original}
+                        alt=""
+                        className="h-full w-full object-contain"
+                      />
+                    </div>
+                  )}
+                />
                 </div>
-                <div className="w-full md:w-3/5">
+                <div className="w-full md:w-2/5">
                 {/* Card Content */}
-                    <div className="flex flex-col md:ms-10 px-10 truncate f-cairo w-full h-full gap-2">
-                        <h4 className="text-[#333333] text-trnucate h-10 ">
+                    <div className="flex flex-col flex-wrap f-cairo w-full h-full gap-4">
+                        <h1 className="text-[#333333] text-wrap">
                             {product.title}
-                        </h4>
+                        </h1>
                         <div className="flex justify-start items-center gap-2 font-bold">
-                            {RatingStars}
-                            
+                            {ratingStars}
                         </div>
                         {/* Price And Quantity */}
                         <div className="flex w-full flex-wrap gap-3 mt-1  justify-between">
                             <div className="flex gap-1 flex-col">
                             <h6 className="text-gray-500">Price</h6>
                             <div className="flex gap-3">
-                            <h4 className="text-gray-800 font-bold">${product.price}</h4>
-                            <p className="text-gray-400 text-lg line-through">
+                            <h2 className="text-gray-800 font-bold">${product.price}</h2>
+                            <p className="text-gray-400 text-3xl line-through">
                                 ${+product.price + +(product.discount * product.price / 100)}</p>
                             </div>
                             </div>                           
                             <div className="gap-1 flex flex-col">
                             <h6 className="text-gray-500">Quantity</h6>
-                            <div className="flex flex-row gap-1 product-qty">
+                            <div className="flex flex-row gap-1 product-qty lg:pr-5">
                                 <span>
                                     <Button onClick={handleDecrease}>
                                         <Minus />
@@ -123,14 +122,24 @@ export default function SingleProduct() {
                                 </div>
                             </div>
                         </div>
-                        
+                        {/* Description */}
+                        <div className="flex flex-col">
+                        <div className="flex flex-col items-start">
+                        <h1 className="text-center text-3xl text-gray-500">Description</h1>
+                        <span className="w-60 bg-[#eceaea] h-[3px] rounded-3xl"></span>
+                        </div>
+                        <div className="w-full">
+                            <p className="text-wrap text-2xl">{product.description}</p>
+                        </div>
+                        </div>
+                        {/* Total Price And add to cart*/}
                         <div className="flex items-center justify-between flex-wrap">
-
-                            <button>
-                                <faCartPlus />
-                            <FontAwesomeIcon icon={faCartPlus} className="mr-3 hover:text-[#36ce70]  
-                            transition-all duration-300" fontSize={27}/>
-                            
+                            <div className="flex flex-col">
+                                <p className="text-gray-400 text-xl">Total Price</p>
+                                <p className="text-gray-500 text-3xl">${totalPrice}</p>
+                            </div>
+                            <button className="btn-second rounded-full w-1/3">
+                                Add To Cart
                             </button>
                         </div>
                     </div>

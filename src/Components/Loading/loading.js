@@ -1,13 +1,15 @@
-import { helix } from 'ldrs'
-helix.register()
+import { dotPulse } from 'ldrs'
+dotPulse.register()
 export default function loadingSubmit() {
     return (
         <div className="spinner-container-submit">
-            <l-helix
-                size="45"
-                speed="2.5"
-                color="#06c44fcc"
-            ></l-helix>
+                <l-dot-pulse
+                    size="175"
+                    speed="2.5"
+                    color="#06c44fcc"
+                ></l-dot-pulse>
         </div>
     )
 }
+
+

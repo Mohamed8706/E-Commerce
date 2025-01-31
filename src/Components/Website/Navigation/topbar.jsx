@@ -86,7 +86,7 @@ export default function TopBar() {
         <nav className="py-2 px-3 top-0 right-0 w-full  bg-white">
             <Container style={{marginTop: "0px"}}>
             <div className="flex flex-wrap items-center gap-md-0 gap-4 justify-between">
-                <Link to="/" className="col-3 hover:bg-transparent">
+                <Link to="/" className="col-3 hover:!bg-transparent">
                     <img
                         className="w-[200px]"
                         src={require("../../../Assets/Elegant_Online_Shopping_Logo_Template-removebg-preview.png")}
@@ -123,7 +123,7 @@ export default function TopBar() {
             </div>
 
             <div className="nav-top order-md-3 gap-4 order-1 col-3 flex justify-end items-center">
-                <Link to={"/"} className="hover:bg-transparent">
+                <Link to={"/"} className="hover:!bg-transparent">
                 <FontAwesomeIcon  
                 icon={faCartShopping} color="primary" fontSize={25}/>
                 </Link>

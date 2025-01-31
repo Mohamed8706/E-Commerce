@@ -21,7 +21,7 @@
     justify-content: space-around;
     border-radius: 10px;
     transition: all 0.5s;
-    z-index: 999;
+    z-index: 998;
   }
   .button-container:hover {
     width: 350px;
