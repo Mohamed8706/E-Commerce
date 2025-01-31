@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 export default function ProductCard({ data }) {
     const [qty, setQty] = useState(1);
-    console.log(data.id)
+    
     const handleDecrease = () => {
         if (qty > 1) {
             setQty((prev) => prev - 1);
