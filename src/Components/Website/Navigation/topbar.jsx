@@ -10,14 +10,18 @@ import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import { faCartShopping, faSearch } from "@fortawesome/free-solid-svg-icons";
 import useSWR from "swr";
 import LoadingSubmit from '../../Loading/loading';
-
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 export default function TopBar() {
     // States
     const [name, setName] = useState("");
     const [loading, setLoading] = useState(false);
     const [role, setRole] = useState("");
     const [cat, setCat] = useState([]);
+    const [show, setShow] = useState(false);
 
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
 
     // Navigation
@@ -123,11 +127,29 @@ export default function TopBar() {
             </div>
 
             <div className="nav-top order-md-3 gap-4 order-1 col-3 flex justify-end items-center">
-                <Link to={"/"} className="hover:!bg-transparent">
-                <FontAwesomeIcon  
-                icon={faCartShopping} color="primary" fontSize={25}/>
-                </Link>
                 
+                <>
+                <Button variant="primary" onClick={handleShow}>
+                    <FontAwesomeIcon  
+                    icon={faCartShopping} color="primary" fontSize={25}/>
+                </Button>
+
+                <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                <Modal.Title>Cart</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>
+                Close
+                </Button>
+                <Button variant="primary" onClick={handleClose}>
+                Save Changes
+                </Button>
+                </Modal.Footer>
+                </Modal>
+                </>
+            
                 <DropdownButton id="dropdown-basic-button"  title={
                 <FontAwesomeIcon className="bg-primary p-2  rounded-full" 
                 icon={faUserCircle} color="white" fontSize={27}/>}>

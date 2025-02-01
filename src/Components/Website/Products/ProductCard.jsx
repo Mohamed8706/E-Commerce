@@ -5,6 +5,7 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import AddToCart from "../../../helpers/AddToCart";
 
 export default function ProductCard({ data }) {
     const [qty, setQty] = useState(1);
@@ -81,7 +82,7 @@ export default function ProductCard({ data }) {
                             </Button>
                         </span>
                     </div>
-                    <button>
+                    <button onClick={() => AddToCart(data)}>
                     <FontAwesomeIcon icon={faCartPlus} className="mr-3 hover:text-[#36ce70]  
                     transition-all duration-300" fontSize={27}/>
                     

@@ -9,6 +9,7 @@ import { Button, FormControl } from "react-bootstrap";
 import { Minus, Plus } from "lucide-react";
 import RatingStars from "../../../helpers/RatingStars";
 import SingleProductSekelton from "../../../Components/Loading/SingleProductSkeleton";
+import AddToCart from "../../../helpers/AddToCart";
 
 export default function SingleProduct() {
     // States
@@ -49,7 +50,7 @@ export default function SingleProduct() {
         });
         setProduct(data[0]);
         setImg(data[0].images)
-        // setLoading(false)
+        setLoading(false)
     }
     const { mutate } = useSWR(`${baseUrl}/${Product}/${id}`, fetchProduct, {
         revalidateOnFocus: false })
@@ -63,6 +64,8 @@ export default function SingleProduct() {
     // Rating Stars
     const ratingStars = RatingStars(product.rating)
     const totalPrice = qty * product.price;
+    // Add To cart 
+
     return (
         <div className="pb-16 px-3">
             {loading ? <SingleProductSekelton /> : (
@@ -140,7 +143,7 @@ export default function SingleProduct() {
                                 <p className="text-gray-400 text-xl">Total Price</p>
                                 <p className="text-gray-500 text-3xl">${totalPrice}</p>
                             </div>
-                            <button className="btn-second rounded-full w-1/3">
+                            <button onClick={() => AddToCart(product)} className="btn-second rounded-full w-1/3">
                                 Add To Cart
                             </button>
                         </div>
