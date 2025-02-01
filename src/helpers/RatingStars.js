@@ -15,6 +15,7 @@ export default function RatingStars(rating) {
         <FontAwesomeIcon icon={faStarHalfStroke} color="#ffc43f" className="w-6 h-6"/> : 
         <Star  stroke="#ffc43f" className="w-6 h-6" />
     })
-    return rating % 2 === 0 ?  fullStars.concat(emptyStars) : fullStars.concat(halfStars).concat(emptyStars.slice(1));
+    return rating % 2 === 0 ?  fullStars.concat(emptyStars) : 
+    fullStars.concat(halfStars).concat(emptyStars.slice(1)).slice(0, 5);
 
 }

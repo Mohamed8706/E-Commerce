@@ -3,18 +3,17 @@ import ReactImageGallery from "react-image-gallery";
 import axios from "axios";
 import { useState } from "react";
 import useSWR from "swr";
-import { baseUrl, Product, Products } from "../../../Api/Api";
+import { baseUrl, Product } from "../../../Api/Api";
 import Cookie from 'cookie-universal';
 import { Button, FormControl } from "react-bootstrap";
-import { LucideStar, LucideStarHalf, Minus, Plus, Star, StarHalf, StarHalfIcon, StarOff } from "lucide-react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartPlus, faStarHalf, faStarHalfStroke } from "@fortawesome/free-solid-svg-icons";
-import { faStar } from "@fortawesome/free-regular-svg-icons";
+import { Minus, Plus } from "lucide-react";
 import RatingStars from "../../../helpers/RatingStars";
+import SingleProductSekelton from "../../../Components/Loading/SingleProductSkeleton";
 
 export default function SingleProduct() {
     // States
     const [product, setProduct] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [img, setImg] = useState([]);
     const [qty, setQty] = useState(1);
 
@@ -42,6 +41,7 @@ export default function SingleProduct() {
 
     // Fetch the Product
     const fetchProduct = async (url) => {
+        setLoading(true)
         const {data} = await axios.get(url, {
             headers: {
                 Authorization: "Bearer " + token,
@@ -49,11 +49,12 @@ export default function SingleProduct() {
         });
         setProduct(data[0]);
         setImg(data[0].images)
+        // setLoading(false)
     }
     const { mutate } = useSWR(`${baseUrl}/${Product}/${id}`, fetchProduct, {
         revalidateOnFocus: false })
     // Gallery Images
-    const images = Array.from({length: 2}).map((img)=> {
+    const images = img.map((img)=> {
             return {
                 original: img.image,
                 thumbnail: img.image
@@ -64,6 +65,7 @@ export default function SingleProduct() {
     const totalPrice = qty * product.price;
     return (
         <div className="pb-16 px-3">
+            {loading ? <SingleProductSekelton /> : (
             <div className="w-full flex gap-10 lg:gap-32 flex-wrap">
                 <div className="w-full md:w-2/5 rounded-lg overflow-hidden">
                 <ReactImageGallery lazyLoad={true} showFullscreenButton={false} 
@@ -145,7 +147,9 @@ export default function SingleProduct() {
                     </div>
                 
                 </div>
+                
             </div>
+            )}
         </div>
     )
 }
