@@ -25,7 +25,7 @@ export default function Categoriesection(props) {
 
     }
 
-    const { mutate } = useSWR(`${baseUrl}/${endPoint}?limit=8&page=6`, fetchData, 
+    const { mutate } = useSWR(`${baseUrl}/${endPoint}?limit=8&page=1`, fetchData, 
         {
         revalidateOnFocus: false, 
         })
