@@ -6,23 +6,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import AddToCart from "../../../helpers/AddToCart";
+import ProductCounter from "../Utils/ProductCounter";
 
 export default function ProductCard({ data }) {
     const [qty, setQty] = useState(1);
     
-    const handleDecrease = () => {
-        if (qty > 1) {
-            setQty((prev) => prev - 1);
-        }
-    };
 
-    const handleIncrease = () => {
-        setQty((prev) => prev + 1);
-    };
-
-    const handleInputChange = (e) => {
-        setQty(+e.target.value);
-    };
     return (
         
         <div className="rounded-2xl p-3 h-[500px] bg-white hover:shadow-xl 
@@ -62,27 +51,8 @@ export default function ProductCard({ data }) {
                 </div>
                 
                 <div className="flex items-center justify-between flex-wrap">
-                    <div className="product-qty w-1/2 gap-1 flex flex-row">
-                        <span>
-                            <Button onClick={handleDecrease}>
-                                <Minus />
-                            </Button>
-                        </span>
-                        <FormControl
-                            type="number"
-                            inputMode="numeric"
-                            min="1"
-                            className="!w-12"
-                            value={qty}
-                            onChange={handleInputChange}
-                        ></FormControl>
-                        <span>
-                            <Button onClick={handleIncrease}>
-                                <Plus />
-                            </Button>
-                        </span>
-                    </div>
-                    <button onClick={() => AddToCart(data)}>
+                    <ProductCounter setQty={setQty} />
+                    <button onClick={() => AddToCart(data, qty)}>
                     <FontAwesomeIcon icon={faCartPlus} className="mr-3 hover:text-[#36ce70]  
                     transition-all duration-300" fontSize={27}/>
                     

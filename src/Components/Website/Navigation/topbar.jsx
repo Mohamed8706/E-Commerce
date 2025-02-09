@@ -10,8 +10,8 @@ import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import { faCartShopping, faSearch } from "@fortawesome/free-solid-svg-icons";
 import useSWR from "swr";
 import LoadingSubmit from '../../Loading/loading';
-import Offcanvas from 'react-bootstrap/Offcanvas';
-import { Minus, Plus } from "lucide-react";
+import Cart from "../Utils/Cart";
+
 
 export default function TopBar() {
     // States
@@ -20,23 +20,9 @@ export default function TopBar() {
     const [role, setRole] = useState("");
     const [cat, setCat] = useState([]);
     const [show, setShow] = useState(false);
-    const [qty, setQty] = useState(1);
-    
-    const handleDecrease = () => {
-        if (qty > 1) {
-            setQty((prev) => prev - 1);
-        }
-    };
+    const [cartData, setCartData] = useState([]);
 
-    const handleIncrease = () => {
-        setQty((prev) => prev + 1);
-    };
 
-    const handleInputChange = (e) => {
-        setQty(+e.target.value);
-    };
-
-    const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     // Navigation
     const nav = useNavigate();
@@ -96,49 +82,13 @@ export default function TopBar() {
         }
     );
 
-        const [cartData, setCartData] = useState([]);
-        const totalPrice = cartData.reduce((total, product) => total + Number(product.price), 0);
-        
-        useEffect(() => {
-            const storedCart = JSON.parse(localStorage.getItem('Cart')) || [];
-            setCartData(storedCart);
-        }, []);
-        
 
-        const renderCartItems = cartData.map((product, index) => (
-        <div key={index} className="d-flex justify-content-between border-b-2 p-3">
-        <div className="w-2/3">
-        <p className="fw-bold mb-1 text-2xl">{product.title}</p>
-        <p className="text-muted mb-0 text-xl">{product.description}</p>
-        </div>
-        <div>
-        <p className="text-gray-500 fw-bold">
-            $ {product.price}</p>
-            <div className="flex items-center justify-between flex-wrap">
-                    <div className="product-qty w-1/2 gap-1 flex flex-row">
-                        <span>
-                            <Button onClick={handleDecrease}>
-                                <Minus />
-                            </Button>
-                        </span>
-                        <FormControl
-                            type="number"
-                            inputMode="numeric"
-                            min="1"
-                            className="!w-12"
-                            value={qty}
-                            onChange={handleInputChange}
-                        ></FormControl>
-                        <span>
-                            <Button onClick={handleIncrease}>
-                                <Plus />
-                            </Button>
-                        </span>
-                    </div>
-                    </div>
-        </div>
-        </div>
-        ));
+        useEffect(() => {
+        const storedCart = JSON.parse(localStorage.getItem('Cart')) || [];
+        setCartData(storedCart);
+        }, [show]);
+
+
     return (
         <>
         {loading && <LoadingSubmit />}
@@ -193,33 +143,7 @@ export default function TopBar() {
                  </span>
                 </div>
 
-                <Offcanvas show={show} onHide={handleClose} placement="end" 
-                className="items-center md:!w-[550px] f-cairo ">
-                <Offcanvas.Header closeButton className="text-2xl p-4">
-                <Offcanvas.Title className=""></Offcanvas.Title>
-                </Offcanvas.Header>
-                <Offcanvas.Body className="w-full">
-                    <div className="flex justify-between m-1">
-                    <h1 className="font-semibold">Your Cart</h1>
-                    <span className="bg-primary w-12 h-12 text-2xl text-white
-                    flex items-center justify-center font-bold rounded-3xl">
-                        {cartData.length}
-                    </span>
-                    </div>
-                    <div className="border rounded-lg text-2xl">
-                    {cartData.length > 0 ? renderCartItems : <p>No items in the cart.</p>}
-                    <div className="d-flex justify-content-between border-b-2 p-3">
-                        <p>Total (USD)</p>
-                        <p className="font-bold text-gray-600">${totalPrice}</p>
-                        </div>
-                    </div>
-                    <div className="w-full text-center px-2 py-3">
-                        <button className="w-full p-3 bg-primary rounded-lg text-3xl transition duration-200
-                        border border-primary hover:!bg-white hover:!text-black text-white">
-                            Continue To Checkout</button>
-                    </div>
-                </Offcanvas.Body>
-                </Offcanvas>
+                <Cart show={show} setShow={setShow} cartData={cartData} setCartData={setCartData}/>
                 </>
             
                 <DropdownButton id="dropdown-basic-button"  title={
