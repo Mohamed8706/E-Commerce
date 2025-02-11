@@ -14,7 +14,7 @@ export default function ProductCard({ data }) {
 
     return (
         
-        <div className="rounded-2xl p-3 h-[500px] bg-white hover:shadow-xl 
+        <div className="rounded-2xl p-3 h-[530px] bg-white hover:shadow-xl 
         shadow-custom border relative border-[#fbfbfb]">
             {/* Image */}
             <span className="absolute bg-gray-50 rounded-full hover:bg-[#f03838]
@@ -37,22 +37,26 @@ export default function ProductCard({ data }) {
             </Link>
             {/* Card Content */}
             <div className="flex flex-col mt-4 truncate w-full h-full gap-2">
-                <h4 className="text-[#333333] text-trnucate h-10 font-semibold f-cairo">
+                <h4 className="text-[#333333] text-trnucate h-8 font-semibold f-cairo">
                     {data.title}
                 </h4>
                 <div className="flex justify-start items-center gap-2 font-bold">
                     <Star fill="#ffc43f" stroke="#ffc43f" className="w-6 h-6" />
                     <span>{data.rating}</span>
                 </div>
-                <div className="flex w-full gap-3 mt-1 items-stretch justify-start">
+                <div className="flex w-full flex-col items-stretch justify-start">
                     <h4 className="text-gray-800 font-bold">${data.price}</h4>
                     <p className="text-gray-400 text-lg line-through">
                         ${+data.price + +(data.discount * data.price / 100)}</p>
+                        {data.stock < qty ?
+                         <p className="text-red-500 text-lg h-6">there is only {data.stock} left in stock</p> : 
+                         <p className="h-6"></p>
+                         }
                 </div>
                 
                 <div className="flex items-center justify-between flex-wrap">
                     <ProductCounter setQty={setQty} />
-                    <button onClick={() => AddToCart(data, qty)}>
+                    <button disabled={qty === 0 || data.stock < qty} onClick={() => AddToCart(data, qty)}>
                     <FontAwesomeIcon icon={faCartPlus} className="mr-3 hover:text-[#36ce70]  
                     transition-all duration-300" fontSize={27}/>
                     

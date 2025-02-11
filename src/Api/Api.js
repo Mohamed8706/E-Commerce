@@ -1,4 +1,4 @@
-export const baseUrl = `http://127.0.0.1:8000/api`;
+export const baseUrl = `https://ecommerce-backend-production-7caa.up.railway.app/api`;
 
 // Auth
 export const REGISTER = "register";
@@ -25,3 +25,5 @@ export const Product = 'product';
 export const LatestSale = "latest-sale"
 export const LatestProducts = "latest"
 export const TopProducts = "top-rated"
+
+export const Cart = "/cart";

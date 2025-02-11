@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 export default function LandingSection() {
     return (
-            <section className="hand flex justify-between items-center flex-wrap">
+            <section className="hand flex justify-between items-center flex-wrap" id="landing">
                 <Container className="flex flex-row justify-between gap-7">
                     <div className="flex align-items-center align-items-md-start gap-2 flex-col justify-center">
                         <h1 className="font-bold">Shampoo Nice</h1>

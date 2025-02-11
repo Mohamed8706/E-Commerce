@@ -134,13 +134,9 @@ export default function TopBar() {
             <div className="nav-top order-md-3 gap-4 order-1 col-3 flex justify-end items-center">
                 
                 <>
-                <div className="relative">
+                <div>
                 <FontAwesomeIcon  onClick={handleShow} className="cursor-pointer"
                 icon={faCartShopping} color="#06c44fcc" fontSize={35}/>
-                <span className="absolute bg-red-400 bottom-6 left-6 text-xl
-                 rounded-full w-8 h-8 flex justify-center  items-center font-semibold text-white">
-                    {cartData.length}
-                 </span>
                 </div>
 
                 <Cart show={show} setShow={setShow} cartData={cartData} setCartData={setCartData}/>

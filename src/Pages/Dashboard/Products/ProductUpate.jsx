@@ -20,7 +20,8 @@ const [form, setForm] = useState({
     price: '',
     discount: '',
     About: '',
-    category: ''
+    category: '',
+    stock: ''
 });
 
 const menuOpen = useContext(Menu);
@@ -71,7 +72,8 @@ const token = cookie.get("e-commerce")
             price: data.data[0].price,
             discount: data.data[0].discount,
             About: data.data[0].About,
-            category: data.data[0].category
+            category: data.data[0].category,
+            stock: data.data[0].stock
         
         })
         setProductImages(data.data[0].images)
@@ -294,6 +296,23 @@ const imagesShow = images.map((img, key) =>
                 className="w-100"
             />
             <Form.Label>Dicsount</Form.Label>
+
+        </Form.Group>
+                <Form.Group
+            className="form-custom"
+            controlId="formBasicDiscount"
+            
+        >
+            <Form.Control
+                type="search"
+                placeholder="Stock..."
+                name="stock"
+                value={form.stock}
+                onChange={handleChange}
+                required
+                className="w-100"
+            />
+            <Form.Label>Stock</Form.Label>
 
         </Form.Group>
 

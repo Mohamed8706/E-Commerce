@@ -11,6 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { DropdownButton, NavLink } from "react-bootstrap";
 import loadingSubmit from './../../Components/Loading/loading';
+import NavButton from "../../Components/Website/Navigation/NavButton";
 
 export default function Dashboard() {
     const resizeWidth = useContext(WindowSize);
@@ -102,7 +103,6 @@ export default function Dashboard() {
                     <Outlet /> 
                 </div>
             </div>
-    
         </>
     );
 }

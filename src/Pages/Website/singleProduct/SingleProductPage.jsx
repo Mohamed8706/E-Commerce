@@ -10,6 +10,7 @@ import { Minus, Plus } from "lucide-react";
 import RatingStars from "../../../helpers/RatingStars";
 import SingleProductSekelton from "../../../Components/Loading/SingleProductSkeleton";
 import AddToCart from "../../../helpers/AddToCart";
+import ProductCounter from "../../../Components/Website/Utils/ProductCounter";
 
 export default function SingleProduct() {
     // States
@@ -26,19 +27,6 @@ export default function SingleProduct() {
     const cookie = Cookie();
     const token = cookie.get("e-commerce")
     // Handle Quantity change
-    const handleDecrease = () => {
-        if (qty > 1) {
-            setQty((prev) => prev - 1);
-        }
-    };
-
-    const handleIncrease = () => {
-        setQty((prev) => prev + 1);
-    };
-
-    const handleInputChange = (e) => {
-        setQty(+e.target.value);
-    };
 
     // Fetch the Product
     const fetchProduct = async (url) => {
@@ -105,27 +93,15 @@ export default function SingleProduct() {
                             </div>                           
                             <div className="gap-1 flex flex-col">
                             <h6 className="text-gray-500">Quantity</h6>
-                            <div className="flex flex-row gap-1 product-qty lg:pr-5">
-                                <span>
-                                    <Button onClick={handleDecrease}>
-                                        <Minus />
-                                    </Button>
-                                </span>
-                                <FormControl
-                                    type="number"
-                                    inputMode="numeric"
-                                    min="1"
-                                    className="!w-12"
-                                    value={qty}
-                                    onChange={handleInputChange}
-                                ></FormControl>
-                                <span>
-                                    <Button onClick={handleIncrease}>
-                                        <Plus />
-                                    </Button>
-                                </span>
-                                </div>
+                            <ProductCounter setQty={setQty} />
                             </div>
+                        </div>
+                        <div>
+                        {product.stock < qty ?
+                         <p className="text-red-500 text-xl h-6">
+                            there is only {product.stock} left in stock</p> : 
+                         <p className="h-6"></p>
+                         }
                         </div>
                         {/* Description */}
                         <div className="flex flex-col">
@@ -143,7 +119,7 @@ export default function SingleProduct() {
                                 <p className="text-gray-400 text-xl">Total Price</p>
                                 <p className="text-gray-500 text-3xl">${totalPrice}</p>
                             </div>
-                            <button onClick={() => AddToCart(product)} className="btn-second rounded-full w-1/3">
+                            <button disabled={qty <= 0} onClick={() => AddToCart(product,qty)} className="btn-second rounded-full w-1/3">
                                 Add To Cart
                             </button>
                         </div>

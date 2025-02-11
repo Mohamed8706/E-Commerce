@@ -1,5 +1,4 @@
 import { XCircleIcon, XIcon } from "lucide-react";
-import { useEffect, useState } from "react";
 import { Offcanvas } from "react-bootstrap";
 
 export default function Cart({show, setShow, cartData, setCartData}) {
@@ -36,7 +35,7 @@ export default function Cart({show, setShow, cartData, setCartData}) {
 
     return (
         <Offcanvas show={show} onHide={handleClose} placement="end" 
-                className="items-center md:!w-[550px] f-cairo ">
+                className="items-center md:!w-[550px] f-cairo cart-cart">
                 <Offcanvas.Header closeButton className="text-2xl p-4">
                 <Offcanvas.Title className=""></Offcanvas.Title>
                 </Offcanvas.Header>
@@ -49,7 +48,7 @@ export default function Cart({show, setShow, cartData, setCartData}) {
                     </span>
                     </div>
                     <div className="border rounded-lg text-2xl">
-                    {cartData.length > 0 ? renderCartItems : <p>No items in the cart.</p>}
+                    {cartData.length > 0 ? renderCartItems : <p className="p-3">No items in the cart.</p>}
                     <div className="d-flex justify-content-between border-b-2 p-3">
                         <p>Total (USD)</p>
                         <p className="font-bold text-gray-600">${totalPrice}</p>

@@ -111,7 +111,7 @@ export default function TableShow(props) {
                         ) : item2.value === "image" ? (
                             <img
                                 className="object-contain w-12"
-                                src={item[item2.value]}
+                                src={ item[item2.value]}
                                 alt="image"
                             />
                         ) : item2.value === "images" ? (
