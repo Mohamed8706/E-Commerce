@@ -55,7 +55,7 @@ export default function SingleProduct() {
     // Add To cart 
 
     return (
-        <div className="pb-16 px-3">
+        <div className="py-16 px-3">
             {loading ? <SingleProductSekelton /> : (
             <div className="w-full flex gap-10 lg:gap-32 flex-wrap">
                 <div className="w-full md:w-2/5 rounded-lg overflow-hidden">
@@ -98,10 +98,10 @@ export default function SingleProduct() {
                         </div>
                         <div>
                         {product.stock < qty ?
-                         <p className="text-red-500 text-xl h-6">
-                            there is only {product.stock} left in stock</p> : 
-                         <p className="h-6"></p>
-                         }
+                            <p className="text-red-500 text-xl h-6">
+                                there is only {product.stock} left in stock</p> : 
+                            <p className="h-6"></p>
+                            }
                         </div>
                         {/* Description */}
                         <div className="flex flex-col">
@@ -119,7 +119,7 @@ export default function SingleProduct() {
                                 <p className="text-gray-400 text-xl">Total Price</p>
                                 <p className="text-gray-500 text-3xl">${totalPrice}</p>
                             </div>
-                            <button disabled={qty <= 0} onClick={() => AddToCart(product,qty)} className="btn-second rounded-full w-1/3">
+                            <button disabled={qty <= 0 || qty > product.stock} onClick={() => AddToCart(product,qty)} className="btn-second rounded-full w-1/3">
                                 Add To Cart
                             </button>
                         </div>
