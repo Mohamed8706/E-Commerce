@@ -111,12 +111,13 @@ export default function TableShow(props) {
                         ) : item2.value === "image" ? (
                             <img
                                 className="object-contain w-12"
-                                src={ item[item2.value]}
+                                src={(`https://ecommerce-backend-production-5ad6.up.railway.app` + item[item2.value])}
                                 alt="image"
                             />
                         ) : item2.value === "images" ? (
                             item[item2.value].map((i, idx) => (
-                                <img key={idx} src={i.image} alt="in" className="w-12" />
+                                <img key={idx} src={(`https://ecommerce-backend-production-5ad6.up.railway.app` + i.image)} 
+                                alt="in" className="w-12" />
                             ))
                         ) : item2.value === "created_at" || item2.value == "updated_at" ? (
                             TransformDate(item[item2.value])

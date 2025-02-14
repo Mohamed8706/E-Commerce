@@ -180,7 +180,7 @@ async function HandleDeletingImages(id, name) {
 const imagesShow = images.map((img, key) => 
     <div key={key} className="w-100 relative border p-2">
     <div className="flex flex-row gap-2 ">
-    <img src={URL.createObjectURL(img)} alt="product" className="w-[80px]"/>
+    <img src={img} alt="product" className="w-[80px]"/>
     <div>
         <p className="mb-1">{img.name}</p>
         <p>{(img.size / 1024 < 900 ? (img.size / 1024).toFixed(2) + "KB" : 
@@ -201,7 +201,7 @@ const imagesShow = images.map((img, key) =>
     const showProductImages = productImages.map((img, key) => 
     <div key={key} className="w-100 relative border p-2">
     <div className="flex flex-row gap-2 ">
-    <img src={img.image} alt="product" className="w-[80px]"/>
+    <img src={("https://ecommerce-backend-production-5ad6.up.railway.app" + img.image)} alt="product" className="w-[80px]"/>
     </div>
             <FontAwesomeIcon icon={faTrash} style={{color: "orangered"}} 
             className="w-[30px] h-[30px] cursor-pointer mr-[8px] absolute right-4 top-4"

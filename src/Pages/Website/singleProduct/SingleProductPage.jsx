@@ -45,8 +45,8 @@ export default function SingleProduct() {
     // Gallery Images
     const images = img.map((img)=> {
             return {
-                original: img.image,
-                thumbnail: img.image
+                original: "https://ecommerce-backend-production-5ad6.up.railway.app" + img.image,
+                thumbnail: "https://ecommerce-backend-production-5ad6.up.railway.app" + img.image
             }
         })
     // Rating Stars

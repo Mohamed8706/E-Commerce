@@ -60,6 +60,10 @@ export default function ProductsPage() {
       value: "rating",
       name: "Rating"
     },
+      {
+      value: "stock",
+      name: "Stock"
+    },
     {
         value: "created_at",
         name: "Created"

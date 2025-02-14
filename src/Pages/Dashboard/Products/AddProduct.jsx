@@ -30,6 +30,7 @@ const  [form, setForm] = useState({
     description: '',
     price: '',
     discount: '',
+    stock: '',
     About: ''
 
 })
@@ -39,6 +40,7 @@ const dummyData = {
     description: 'dummy',
     price: '220',
     discount: '0',
+    stock: '0',
     About: 'About'
 
 }
@@ -196,7 +198,7 @@ const imagesShow = images.map((img, key) =>
         <p>{(img.size / 1024 < 900 ? (img.size / 1024).toFixed(2) + "KB" : 
         (img.size / (1024 * 1024)).toFixed(2) + 'MB' )}</p>
     </div>
-    </div>
+    </div> 
     <div  className="custom-progress">
             <span ref={(e) => [progress.current[key] = e]} className="inner-progress"></span>
     </div>
@@ -307,6 +309,24 @@ return (
                                 
                             />
                             <Form.Label>Discount</Form.Label>
+                        </Form.Group>
+
+                        <Form.Group
+                            className="form-custom"
+                            controlId="formstock"
+                        >
+                            
+                            <Form.Control
+                                className="w-100"
+                                type="text"
+                                placeholder="Stock..."
+                                name="stock"
+                                value={form.stock}
+                                onChange={(e) => handleChange(e)}
+                                disabled={!sent}
+                                
+                            />
+                            <Form.Label>Stock</Form.Label>
                         </Form.Group>
 
                         <Form.Group
