@@ -1,9 +1,6 @@
-import React, { useId, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, { useState } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
-import { Navigation } from "swiper/modules";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import ProductCard from "./ProductCard";
 import axios from "axios";
 import useSWR from "swr";
@@ -33,7 +30,8 @@ export default function ProductSection(props) {
 
     const slides = loading ?
     Array.from({length: 5}).map((item) => <ProductSkeleton />) :
-     fetchedData.map((item) => <ProductCard data={item}/>)
+      fetchedData.map((item) => <ProductCard data={item}/>)
+
 
   return (
     <div className="h-full">

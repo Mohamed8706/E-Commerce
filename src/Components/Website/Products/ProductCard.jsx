@@ -17,11 +17,7 @@ export default function ProductCard({ data }) {
         <div className="rounded-2xl p-3 h-[530px] bg-white hover:shadow-xl 
         shadow-custom border relative border-[#fbfbfb]">
             {/* Image */}
-            <span className="absolute bg-gray-50 rounded-full hover:bg-[#f03838]
-            hover:text-white transition duration-300  top-6 right-6 w-12 h-12 
-            flex justify-center cursor-pointer items-center z-50">
-                <Heart />
-            </span>
+
             <Link to={`/product/${data.id}`} className="text-[#333333] navigation-link">
             <div className="relative w-full h-64 rounded-lg overflow-hidden cursor-pointer">
                 <img

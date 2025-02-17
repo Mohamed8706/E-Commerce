@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import "swiper/css";
 import "swiper/css/navigation";
 import MainSwiper from "../../../helpers/MainSwiper";
@@ -29,11 +29,12 @@ export default function Categoriesection(props) {
         {
         revalidateOnFocus: false, 
         })
-  console.log(fetchedData)
+
 
     const slides = loading ?
     Array.from({length: 6}).map((item) => <CategorySkeleton />) :
       fetchedData.map((item) => <CategoryCard data={item}/>)
+
 
   return (
     <div className="h-[500px]">
