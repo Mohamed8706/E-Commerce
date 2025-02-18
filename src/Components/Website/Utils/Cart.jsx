@@ -1,10 +1,13 @@
 import { useMemo, useCallback, useState, useEffect } from "react";
 import { XCircleIcon } from "lucide-react";
 import { Offcanvas } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 
-export default function Cart({ show, setShow }) {
+export default function Cart() {
     // States
     const [cartData, setCartData] = useState([]);
+    const [show, setShow] = useState(false);
     
     
     
@@ -28,7 +31,7 @@ export default function Cart({ show, setShow }) {
         });
     }, [setCartData]);
 
-    
+    const handleShow = () => setShow(true);
     const handleClose = useCallback(() => setShow(false), [setShow]);
 
     
@@ -47,8 +50,12 @@ export default function Cart({ show, setShow }) {
             </div>
         </div>
     )), [cartData, handleDelete]);
-
+console.log("Cart")
     return (
+        <>
+        <FontAwesomeIcon  onClick={handleShow} className="cursor-pointer"
+        icon={faCartShopping} color="#06c44fcc" fontSize={35}/>
+                
         <Offcanvas show={show} onHide={handleClose} placement="end" className="items-center md:!w-[550px] f-cairo cart-cart">
             <Offcanvas.Header closeButton className="text-2xl p-4">
                 <Offcanvas.Title></Offcanvas.Title>
@@ -74,5 +81,6 @@ export default function Cart({ show, setShow }) {
                 </div>
             </Offcanvas.Body>
         </Offcanvas>
+        </>
     );
 }

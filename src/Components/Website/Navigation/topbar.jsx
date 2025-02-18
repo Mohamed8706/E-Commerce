@@ -1,9 +1,9 @@
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { memo , useState } from "react";
 import axios from "axios";
 import { baseUrl, CAT } from "../../../Api/Api";
-import { Button, Container, DropdownButton, FormControl } from "react-bootstrap";
+import { Container, DropdownButton, FormControl } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { faCartShopping, faSearch } from "@fortawesome/free-solid-svg-icons";
 import useSWR from "swr";
@@ -19,7 +19,6 @@ export default function TopBar() {
     const [show, setShow] = useState(false);
 
 
-    const handleShow = () => setShow(true);
 
 
     // Fetch and render Categories
@@ -41,8 +40,8 @@ export default function TopBar() {
     );
 
 
-
-
+// const MemoizedUserIcon = memo(UserIcon);
+console.log("topbar")
 
     return (
         <>
@@ -89,12 +88,9 @@ export default function TopBar() {
             <div className="nav-top order-md-3 gap-4 order-1 col-3 flex justify-end items-center">
                 
                 
-                <div>
-                <FontAwesomeIcon  onClick={handleShow} className="cursor-pointer"
-                icon={faCartShopping} color="#06c44fcc" fontSize={35}/>
-                </div>
 
-                <Cart show={show} setShow={setShow} />
+ 
+                <Cart />
                 
             
                 <UserIcon />
