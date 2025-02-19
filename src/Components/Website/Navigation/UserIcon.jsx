@@ -53,7 +53,7 @@ export function UserIcon() {
             console.log(err);
         }
     }
-    console.log("UserIcon re-rendered!");
+
     return (
         <DropdownButton
             id="dropdown-basic-button"

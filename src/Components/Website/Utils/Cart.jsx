@@ -50,7 +50,7 @@ export default function Cart() {
             </div>
         </div>
     )), [cartData, handleDelete]);
-console.log("Cart")
+
     return (
         <>
         <FontAwesomeIcon  onClick={handleShow} className="cursor-pointer"
