@@ -104,8 +104,6 @@ export default function TableShow(props) {
                             "Admin"
                         ) : item[item2.value] === "2001" ? (
                             "User"
-                        ) : item[item2.value] === "1996" ? (
-                            "Writer"
                         ) : item[item2.value] === "1999" ? (
                             "Product Manager"
                         ) : item2.value === "image" ? (

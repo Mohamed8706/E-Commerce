@@ -1,6 +1,6 @@
 import { dotPulse } from 'ldrs'
 dotPulse.register()
-export default function loadingSubmit() {
+export default function LoadingSubmit() {
     return (
         <div className="spinner-container-submit">
                 <l-dot-pulse
