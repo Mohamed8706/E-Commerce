@@ -1,19 +1,20 @@
 import { SearchBar } from './SearchBar';
-import { memo , useState } from "react";
-import axios from "axios";
-import { baseUrl, CAT } from "../../../Api/Api";
+import { useContext } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import useSWR from "swr";
-import LoadingSubmit from '../../Loading/loading';
-import Cart from "../Utils/Cart";
 import { UserIcon } from './UserIcon';
+import AddToCartPopup from '../../../helpers/AddToCartPopUp';
+import Cart from './../Utils/Cart';
+
+
 
 
 export default function TopBar() {
 
+
     return (
         <>
+        <AddToCartPopup />
         
         <nav className="py-2 px-3 top-0 right-0 w-full  bg-white">
             <Container style={{marginTop: "0px"}}>

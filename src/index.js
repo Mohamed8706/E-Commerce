@@ -14,6 +14,7 @@ import  MenuContext  from './context/menucontext';
 import WindowResize from './context/windowresize';
 import 'animate.css';
 import './custom.css';
+import CartContext from './context/addToCartContext';
 
 
 
@@ -22,9 +23,11 @@ root.render(
     <React.StrictMode>
     <WindowResize>
     <MenuContext>
+    <CartContext>
     <Router>
     <App />
     </Router>
+    </CartContext>
     </MenuContext>
     </WindowResize>
     </React.StrictMode>
