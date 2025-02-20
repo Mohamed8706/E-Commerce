@@ -7,6 +7,7 @@ import Cookie from "cookie-universal";
 import { ReactComponent as MyICon } from "../../../Assets/Login-amico.svg";
 import { ReactComponent as GoogleIcon } from "../../../Assets/icons8-google.svg";
 import { Form } from "react-bootstrap";
+import { Google } from "../../../Components/Website/Utils/Google";
 
 
     export default function LogIn() {
@@ -36,7 +37,7 @@ import { Form } from "react-bootstrap";
     useEffect(() => {
         foc.current.focus();
     }, [])
- 
+
     // handle form change
     function handleChange(e) {
         setForm({ ...form, [e.target.name]: e.target.value });
@@ -76,12 +77,7 @@ import { Form } from "react-bootstrap";
             <div className="row ">
             <Form className="form" onSubmit={handleSubmit}>
                 <div className="custom-form">
-                <div className="google-wraper">
-                    <a href="http://127.0.0.1:8000/login-google">
-                    <GoogleIcon className="google-icon" />
-                    <p className="par">Continue with Google</p>
-                    </a>
-                </div>
+                    <Google />
                 <span className="divider">or</span>
 
                 <Form.Group

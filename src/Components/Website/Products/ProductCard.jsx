@@ -44,10 +44,11 @@ export default function ProductCard({ data }) {
                     <h4 className="text-gray-800 font-bold">${data.price}</h4>
                     <p className="text-gray-400 text-lg line-through">
                         ${+data.price + +(data.discount * data.price / 100)}</p>
-                        {data.stock < qty ?
-                         <p className="text-red-500 text-lg h-6">there is only {data.stock} left in stock</p> : 
-                         <p className="h-6"></p>
-                         }
+                    {data.stock < qty ?
+                        <p className="text-red-500 text-lg h-6">
+                            there is only {data.stock} left in stock</p> : 
+                        <p className="h-6"></p>
+                        }
                 </div>
                 
                 <div className="flex items-center justify-between flex-wrap">

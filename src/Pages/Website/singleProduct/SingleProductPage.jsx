@@ -1,16 +1,12 @@
 import { useParams } from "react-router-dom"
-import ReactImageGallery from "react-image-gallery";
 import axios from "axios";
-import { useState } from "react";
-import useSWR from "swr";
+import { useEffect, useMemo, useState } from "react";
 import { baseUrl, Product } from "../../../Api/Api";
-import Cookie from 'cookie-universal';
-import { Button, FormControl } from "react-bootstrap";
-import { Minus, Plus } from "lucide-react";
-import RatingStars from "../../../helpers/RatingStars";
 import SingleProductSekelton from "../../../Components/Loading/SingleProductSkeleton";
 import AddToCart from "../../../helpers/AddToCart";
 import ProductCounter from "../../../Components/Website/Utils/ProductCounter";
+import { ImageGallery } from './../../../Components/Website/Utils/ImageGallery';
+import { RatingStars } from './../../../helpers/RatingStars';
 
 export default function SingleProduct() {
     // States
@@ -23,55 +19,33 @@ export default function SingleProduct() {
     // ID
     const { id } = useParams()
 
-    // Cookies
-    const cookie = Cookie();
-    const token = cookie.get("e-commerce")
-    // Handle Quantity change
-
     // Fetch the Product
     const fetchProduct = async (url) => {
         setLoading(true)
-        const {data} = await axios.get(url, {
-            headers: {
-                Authorization: "Bearer " + token,
-            }
-        });
+        const {data} = await axios.get(url);
         setProduct(data[0]);
         setImg(data[0].images)
         setLoading(false)
     }
-    const { mutate } = useSWR(`${baseUrl}/${Product}/${id}`, fetchProduct, {
-        revalidateOnFocus: false })
-    // Gallery Images
-    const images = img.map((img)=> {
-            return {
-                original: "https://ecommerce-backend-production-5ad6.up.railway.app" + img.image,
-                thumbnail: "https://ecommerce-backend-production-5ad6.up.railway.app" + img.image
-            }
-        })
-    // Rating Stars
-    const ratingStars = RatingStars(product.rating)
-    const totalPrice = qty * product.price;
-    // Add To cart 
 
+    useEffect(() => {
+        fetchProduct(`${baseUrl}/${Product}/${id}`)
+    }, [id])
+
+    // Gallery Images
+    const images = useMemo(() => img.map((img) => ({
+        original: "https://ecommerce-backend-production-5ad6.up.railway.app" + img.image,
+        thumbnail: "https://ecommerce-backend-production-5ad6.up.railway.app" + img.image
+    })), [img]); 
+
+
+    const totalPrice = qty * product.price;
+
+    if (loading) return <SingleProductSekelton />;
     return (
         <div className="py-16 px-3">
-            {loading ? <SingleProductSekelton /> : (
             <div className="w-full flex gap-10 lg:gap-32 flex-wrap">
-                <div className="w-full md:w-2/5 rounded-lg overflow-hidden">
-                <ReactImageGallery lazyLoad={true} showFullscreenButton={false} 
-                items={images} showBullets={true} showThumbnails={false} showPlayButton={false}
-                renderItem={(item) => (
-                    <div className="h-[400px] w-full overflow-hidden">
-                      <img
-                        src={item.original}
-                        alt=""
-                        className="h-full w-full object-contain"
-                      />
-                    </div>
-                  )}
-                />
-                </div>
+                <ImageGallery images={images}  />
                 <div className="w-full md:w-2/5">
                 {/* Card Content */}
                     <div className="flex flex-col flex-wrap f-cairo w-full h-full gap-4">
@@ -79,8 +53,9 @@ export default function SingleProduct() {
                             {product.title}
                         </h1>
                         <div className="flex justify-start items-center gap-2 font-bold">
-                            {ratingStars}
+                            <RatingStars rating={product.rating} />
                         </div>
+
                         {/* Price And Quantity */}
                         <div className="flex w-full flex-wrap gap-3 mt-1  justify-between">
                             <div className="flex gap-1 flex-col">
@@ -96,6 +71,7 @@ export default function SingleProduct() {
                             <ProductCounter setQty={setQty} />
                             </div>
                         </div>
+                        
                         <div>
                         {product.stock < qty ?
                             <p className="text-red-500 text-xl h-6">
@@ -128,7 +104,7 @@ export default function SingleProduct() {
                 </div>
                 
             </div>
-            )}
+            
         </div>
     )
 }

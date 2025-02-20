@@ -23,7 +23,7 @@ export function SearchBar() {
   useEffect(() => {
     fetchCategories(`${baseUrl}/${CAT}`);
   }, []);
-console.log("search bar")
+
   return (
     <>
       {loading && <LoadingSubmit />}
