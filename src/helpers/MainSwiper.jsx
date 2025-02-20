@@ -66,7 +66,7 @@ return (
                     <SwiperSlide key={ind}>
                         {content}
                     </SwiperSlide>))}
-   
+
         </Swiper>
     </section>
     );

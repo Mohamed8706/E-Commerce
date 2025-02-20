@@ -1,5 +1,5 @@
     import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-    import { useContext } from "react";
+    import { memo, useContext } from "react";
     import { NavLink } from "react-router-dom";
     import { Menu } from "../../context/menucontext";
     import { WindowSize } from "../../context/windowresize";
@@ -9,7 +9,7 @@
     import axios from "axios";
     import { links } from "./links";
 
-    export default function SideBar() {
+    export const SideBar = memo(function SideBar() {
     const menuOpen = useContext(Menu);
     const isOpen = menuOpen.isOpen;
     const resizeWidth = useContext(WindowSize);
@@ -66,4 +66,4 @@
         })}
         </div>
     );
-    }
+    });
