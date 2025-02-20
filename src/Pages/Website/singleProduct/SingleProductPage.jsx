@@ -40,7 +40,6 @@ export default function SingleProduct() {
 
 
     const totalPrice = qty * product.price;
-
     if (loading) return <SingleProductSekelton />;
     return (
         <div className="py-16 px-3">
@@ -71,7 +70,7 @@ export default function SingleProduct() {
                             <ProductCounter setQty={setQty} />
                             </div>
                         </div>
-                        
+
                         <div>
                         {product.stock < qty ?
                             <p className="text-red-500 text-xl h-6">

@@ -19,8 +19,8 @@ export default function SingleProductSekelton() {
                         <div className="bg-gray-200 loading-animation 
                         w-2/3 h-6 rounded-2xl border-[1px] border-gray-700"></div>
                         <div className="flex w-1/3 justify-start items-center gap-2">
-                            {Array.from({length: 5}).map((star) => {
-                                return <div className="bg-gray-200 loading-animation 
+                            {Array.from({length: 5}).map((star, ind) => {
+                                return <div key={ind} className="bg-gray-200 loading-animation 
                                     w-8 h-8 rounded-full border-[1px] border-gray-700"></div>})}
                         </div>
 
@@ -57,16 +57,3 @@ export default function SingleProductSekelton() {
 
 );
 }
-
-
-
-
-
-
-
-    <div className="rounded-3xl bg-white h-[250px] animate-animated hover:animate-pulse
-    flex justify-center flex-wrap p-4 shadow-sm  border-2 border-gray-400">
-    <div className="img-holder p-4 bg-gray-100 h-2/3 col-10 shadow-lg border border-gray-400 m-0 ">
-    </div>
-    <div className="first-icon w-[10rem] h-[1rem] shadow-lg border border-gray-400 bg-gray-100 m-0"></div>
-    </div>

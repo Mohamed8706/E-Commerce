@@ -8,4 +8,4 @@ export const  ImageGallery = memo(function ImageGallery({images}) {
                 </div>} />
         </div>;
 }
-);
+)
