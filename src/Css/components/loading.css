@@ -1,0 +1,36 @@
+/* Submit */
+.spinner-container-submit {
+    width: 100vw ;
+    height: 100vh;
+    position:fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* tableLoading */
+.first-icon {
+    padding: 10px 0;
+    border-radius: 14px;
+    animation: pulse;
+    animation-duration: 1s;
+    
+}
+
+.loading-animation {
+    opacity: 1;
+    animation: flicker 1.3s infinite ease-in-out alternate-reverse;
+}
+
+@keyframes flicker {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0.4;
+    }
+}

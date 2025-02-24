@@ -1,0 +1,21 @@
+@import "react-image-gallery/styles/css/image-gallery.css";
+@import "tailwindcss";
+
+/* Global Rules */
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    font-family: "Roboto", sans-serif !important;
+}
+.f-cairo {
+    font-family: 'Cairo', sans-serif !important;
+}
+.h-100vh {
+    height: 100vh !important;
+}
+input[type="search"]::-webkit-search-cancel-button{
+    display: none;
+    padding-right: 10px;
+}

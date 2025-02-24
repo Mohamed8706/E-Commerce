@@ -1,0 +1,45 @@
+/* Google Wraper */
+.google-wraper {
+    display: flex;
+
+}
+.google-wraper a{
+    display: flex;
+    width: 80%;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #ffff;
+    border: 2px solid #2c2c2c;
+    border-radius: 8px;
+    background-color: #000000e5;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: 0.1s;
+
+}
+.google-wraper a:hover {
+    background-color: #ffff;
+    color: #000000e5;
+}
+.par {
+    font-family: "Lato", sans-serif;
+    font-weight: bold;
+    margin:10px 0;
+    font-size: 1rem;
+    padding: 8px 0;
+}
+.google-icon {
+    width: 25px;
+    height: 25px;
+}
+.divider {
+    display: block;
+    height: 50px;
+    width: 80%;
+    font-size: 16px;
+    line-height: 50px;
+    color:  #00000080;
+    text-align: center;
+    
+}

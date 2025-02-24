@@ -1,0 +1,119 @@
+.top-bar {
+    position: fixed;
+    padding: 16px !important;
+    width: 100%;
+    height: 10%;
+    background-color: #ffffff;
+    top: 0;
+    z-index: 999;
+}
+.content-container {
+    display: flex;
+    justify-content:center;
+    width: 100%;
+}
+
+.side-bar {
+    height: 100vh;
+    position: fixed;
+    background-color: grad;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    box-shadow: 0 0 0 1px rgba(121, 121, 121, 0.1);
+    overflow: hidden;
+    z-index: 1;
+
+}
+
+.side-bar a, .dropdown-menu a{
+    text-decoration: none;
+    color: #495057;
+    font-family: "Lato", "sans-serif";
+    font-size: 18px;
+    transition: 0.3s;
+    margin: 0 6px 0 10px;
+    border-radius: 4px;
+    padding: 10px !important;
+
+}
+.logout {
+    outline: none !important;
+    border: 2px solid transparent !important;
+    padding: 10px !important;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold !important;
+    transition: 0.3s !important;
+    color: #495057;
+}
+.logout:hover{
+    background-color:#f2f3fe;
+    color: #06c44fcc;
+
+}
+.active{
+    background-color: #f2f3fe;
+    color: #06c44fcc !important;
+    
+
+}
+
+a:hover:not(.navigation-link){
+    color:#06c44fcc;
+    background-color: #f2f3fe;
+}
+a {
+    text-decoration: none !important;
+}
+p {
+    margin: 0 !important;
+}
+
+@media (max-width: 768) {
+    div table{
+        width: fit-content !important;
+    }
+    
+}
+tr th, tr td{
+    text-align: center;
+}
+.dropdown-item:hover {
+    background-color: #f2f3fe !important;
+}
+
+.custom-progress{
+    background-color: rgb(214, 212, 212);
+    width: 100%;
+    height: 9px;
+    border-radius: 4px;
+    margin-top: 20px;
+    position: relative;
+}
+.inner-progress {
+    background-color: #56b6ff;
+    width: 0%;
+    height: 100%;
+    border-radius: inherit;
+    display: block;
+    transition: 0.3s;
+}
+.inner-progress::after {
+    content: attr(percent);
+    position: absolute;
+    top: -25px;
+    background-color: rgb(116, 116, 116);
+    right: calc(50% - 38px);
+    border-radius: 3px;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    width: 38px;
+    height: 23px;
+}
+tr > th {
+    color: #ffffff !important; 
+}

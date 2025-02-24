@@ -1,0 +1,29 @@
+.img-holder {
+  border-radius: 1.4rem;
+}
+.img-holder-span,
+.first-icon {
+  border-radius: 6rem;
+  padding-inline: 2.5rem;
+  padding-block: 0.7rem;
+  margin: 7px;
+  animation: none !important;
+}
+.second-icon {
+  border-radius: 6rem;
+  padding-inline: 1.4rem;
+  padding-block: 0.7rem;
+}
+.third-icon {
+  border-radius: 7px;
+  padding-inline: 1.4rem;
+  padding-block: 0.8rem;
+  margin: 12px;
+}
+button[class*="prev-"]:not(:disabled):hover, button[class*="next-"]:not(:disabled):hover {
+  background-color: #36ce70 !important;
+}
+button[class*="prev-"]:disabled, button[class*="next-"]:disabled{
+  background-color: #eaeaea;
+  color: #ccc;
+}
